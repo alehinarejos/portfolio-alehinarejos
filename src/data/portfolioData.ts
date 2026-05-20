@@ -121,7 +121,7 @@ export const portfolioData: PortfolioData = {
 
   education: [
     {
-      date: "2024",
+      date: "2022 - 2024",
       title: "Técnico en Desarrollo de Aplicaciones Web (DAW)",
       subtitle: "IES Conselleria",
       description: "Desarrollo web adquiriendo conocimientos sólidos en JavaScript, HTML5, PHP y CSS."
@@ -131,6 +131,12 @@ export const portfolioData: PortfolioData = {
       title: "React - Guía definitiva",
       subtitle: "Udemy",
       description: "Profundización en React: hooks, router, redux, next y desarrollo de proyectos reales."
+    },
+    {
+      date: "2025",
+      title: "Python TOTAL - Programador avanzado",
+      subtitle: "Udemy",
+      description: "Desde 0. Usando IA. 16 proyectos REALES. 160 ejercicios de código. Machine Learning, Data Science, Django, Juegos y más!"
     },
     {
       date: "2026",
