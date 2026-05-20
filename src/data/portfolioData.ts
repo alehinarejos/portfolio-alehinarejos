@@ -108,6 +108,14 @@ export const portfolioData: PortfolioData = {
       linkText: "Ver Proyecto",
       link: "https://github.com/alehinarejos/calorie-tracker",
       tech: ["React", "TypeScript", "TailwindCSS"]
+    },
+    {
+      title: "Portfolio",
+      description: "Este sitio web es una muestra de mi trabajo y habilidades, incluyendo proyectos de desarrollo web, experiencia profesional y mi enfoque en crear aplicaciones interactivas y fáciles de usar.",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
+      linkText: "Ver Proyecto",
+      link: "https://github.com/alehinarejos/portfolio-alehinarejos",
+      tech: ["React", "TypeScript", "TailwindCSS"]
     }
   ],
 
