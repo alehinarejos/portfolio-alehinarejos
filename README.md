@@ -1,73 +1,98 @@
-# React + TypeScript + Vite
+# 🚀 Portfolio — Alejandro Hinarejos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Portafolio personal interactivo de Alejandro Hinarejos, desarrollador Full Stack con experiencia en front-end y back-end. Este sitio muestra proyectos, habilidades y experiencia de forma rápida, visual y moderna.
 
-Currently, two official plugins are available:
+🌐 **Live demo:** [portfolio-alehinarejos.vercel.app](https://portfolio-alehinarejos.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Características
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- ⚡ Aplicaciones interactivas, rápidas y atractivas
+- 📱 Diseño responsive para todos los dispositivos
+- 🎨 UI moderna inspirada en solo.to
+- 🔍 SEO optimizado con meta tags y Open Graph
+- 🚀 Desplegado automáticamente en Vercel
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tecnologías
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Área | Tecnologías |
+|------|-------------|
+| Front-end | React, TypeScript |
+| Back-end | Node.js |
+| Deploy | Vercel |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📁 Estructura del proyecto
+
+```
+portfolio-alehinarejos/
+├── public/
+│   └── homepage.jpg
+├── src/
+│   ├── components/
+│   ├── pages/
+│   └── ...
+├── package.json
+└── README.md
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Instalación y uso local
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Requisitos previos
+
+- Node.js `>= 18`
+- npm o yarn
+
+### Pasos
+
+```bash
+# 1. Clona el repositorio
+git clone https://github.com/alehinarejos/portfolio.git
+cd portfolio
+
+# 2. Instala las dependencias
+npm install
+
+# 3. Inicia el servidor de desarrollo
+npm run dev
 ```
+
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+
+### Scripts disponibles
+
+| Comando | Descripción |
+|---------|-------------|
+| `npm run dev` | Inicia el servidor de desarrollo |
+| `npm run build` | Genera la versión de producción |
+| `npm run preview` | Previsualiza el build de producción |
+
+---
+
+## 🌍 Despliegue
+
+El proyecto está desplegado en **[Vercel](https://vercel.com)**. Cada push a la rama `main` genera un deploy automático.
+
+Para desplegar tu propia versión:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
+---
+
+## 📬 Contacto
+
+**Alejandro Hinarejos** — Full Stack Developer
+
+- 🌐 Portfolio: [portfolio-alehinarejos.vercel.app](https://portfolio-alehinarejos.vercel.app/)
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia **MIT**. Consulta el archivo [LICENSE](./LICENSE) para más información.
