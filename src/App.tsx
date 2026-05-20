@@ -469,7 +469,7 @@ function App() {
         >
           <p>© {new Date().getFullYear()} Alejandro Hinarejos. Todos los derechos reservados.</p>
           <p style={{ marginTop: '4px', opacity: 0.7 }}>
-            Inspirado en <a href="https://solo.to" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-color)', textDecoration: 'none' }}>solo.to</a> • Creado con React + TypeScript
+            • Creado con React + TypeScript •
           </p>
         </footer>
 
