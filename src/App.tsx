@@ -19,12 +19,20 @@ type Accent = 'mono' | 'orange' | 'blue' | 'red';
 function App() {
   const [theme, setTheme] = useState<Theme>(() => {
     const saved = localStorage.getItem('portfolio-theme');
-    return (saved as Theme) || 'dark';
+    if (saved) return saved as Theme;
+    
+    // Si no hay tema guardado, respetar el modo claro/oscuro del dispositivo
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      return 'light';
+    }
+    return 'dark';
   });
 
   const [accent, setAccent] = useState<Accent>(() => {
-    const saved = localStorage.getItem('portfolio-accent');
-    return (saved as Accent) || 'mono';
+    // Al entrar a la página, el acento cambia aleatoriamente
+    const accents: Accent[] = ['mono', 'orange', 'blue', 'red'];
+    const randomIndex = Math.floor(Math.random() * accents.length);
+    return accents[randomIndex];
   });
 
   const [copied, setCopied] = useState(false);
@@ -32,19 +40,37 @@ function App() {
   const [emailForm, setEmailForm] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
 
-  // Sync theme
+  // Sincronizar tema del sistema en tiempo real si el usuario no ha seleccionado uno manualmente
+  useEffect(() => {
+    const saved = localStorage.getItem('portfolio-theme');
+    if (saved) return; // Si ya hay selección manual guardada, no hacemos nada
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+    const handleChange = (e: MediaQueryListEvent) => {
+      setTheme(e.matches ? 'light' : 'dark');
+    };
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    } else {
+      mediaQuery.addListener(handleChange);
+      return () => mediaQuery.removeListener(handleChange);
+    }
+  }, []);
+
+  // Sincronizar tema en el DOM y persistir la selección manual
   useEffect(() => {
     document.body.className = '';
     document.body.classList.add(`theme-${theme}`);
     localStorage.setItem('portfolio-theme', theme);
   }, [theme]);
 
-  // Sync accent color
+  // Sincronizar color de acento dinámicamente en el DOM
   useEffect(() => {
-    // Clean previous accent classes
+    // Limpiar clases de acento anteriores
     document.body.classList.remove('accent-mono', 'accent-orange', 'accent-blue', 'accent-red');
     document.body.classList.add(`accent-${accent}`);
-    localStorage.setItem('portfolio-accent', accent);
   }, [accent]);
 
   const copyEmailToClipboard = () => {
@@ -355,10 +381,13 @@ function App() {
             <tr>
               <td className="skill-category-name">Back-end Development</td>
               <td className="skill-list-mono">
+                <span className="skill-list-item">Java</span>
+                <span className="skill-list-item">Spring Boot</span>
                 <span className="skill-list-item">PHP</span>
                 <span className="skill-list-item">Python</span>
                 <span className="skill-list-item">REST APIs</span>
                 <span className="skill-list-item">MySQL</span>
+                <span className="skill-list-item">MongoDB</span>
                 <span className="skill-list-item">Node.js</span>
               </td>
             </tr>
