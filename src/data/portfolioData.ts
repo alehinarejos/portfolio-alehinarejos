@@ -5,6 +5,8 @@ export interface Project {
   linkText: string;
   link: string;
   tech?: string[];
+  category?: string;
+  role?: string;
 }
 
 export interface Education {
@@ -74,13 +76,26 @@ export const portfolioData: PortfolioData = {
 
   projects: [
     {
+      title: "Notify My World Cup 2026",
+      description:
+        "Aplicación web interactiva para seguir el calendario oficial de la Copa Mundial de la FIFA 2026, simular resultados, calcular clasificaciones en tiempo real y programar recordatorios personalizados.",
+      logo: "/notifymyworldcup.svg",
+      linkText: "Ver Proyecto",
+      link: "https://github.com/alehinarejos/NotifyMyWorldCup",
+      tech: ["React 19", "TypeScript", "Vite", "Vanilla CSS", "Lucide React"],
+      category: "FRONT_END",
+      role: "CREADOR / DEV"
+    },
+    {
       title: "InfoEdu CV",
       description:
         "Buscador interactivo de centros educativos y FP en la Comunitat Valenciana. Construido con Next.js, Tailwind CSS y Leaflet para mapas dinámicos.",
       logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
       linkText: "Ver Proyecto",
       link: "https://github.com/alehinarejos/infoeducv",
-      tech: ["Next.js", "Tailwind CSS", "Leaflet", "TypeScript"]
+      tech: ["Next.js", "Tailwind CSS", "Leaflet", "TypeScript"],
+      category: "FRONT_END",
+      role: "CREADOR / DEV"
     },
     {
       title: "Dopamine Lock",
@@ -89,7 +104,9 @@ export const portfolioData: PortfolioData = {
       logo: "https://images.icon-icons.com/2699/PNG/512/swift_logo_icon_168770.png",
       linkText: "Ver Proyecto",
       link: "https://github.com/alehinarejos/dopamine-blocker",
-      tech: ["Swift", "SwiftUI", "iOS"]
+      tech: ["Swift", "SwiftUI", "iOS"],
+      category: "MÓVIL_IOS",
+      role: "DISEÑADOR / DEV"
     },
     {
       title: "Calculadora de propinas",
@@ -98,7 +115,9 @@ export const portfolioData: PortfolioData = {
       logo: "https://cdn.jsdelivr.net/npm/programming-languages-logos/src/typescript/typescript.png",
       linkText: "Ver Proyecto",
       link: "https://github.com/alehinarejos/calculadora_propinas",
-      tech: ["React", "TypeScript", "TailwindCSS"]
+      tech: ["React", "TypeScript", "TailwindCSS"],
+      category: "FRONT_END",
+      role: "CREADOR / DEV"
     },
     {
       title: "Calorie Tracker",
@@ -107,7 +126,9 @@ export const portfolioData: PortfolioData = {
       logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
       linkText: "Ver Proyecto",
       link: "https://github.com/alehinarejos/calorie-tracker",
-      tech: ["React", "TypeScript", "TailwindCSS"]
+      tech: ["React", "TypeScript", "TailwindCSS"],
+      category: "FRONT_END",
+      role: "CREADOR / DEV"
     },
     {
       title: "Portfolio",
@@ -115,7 +136,9 @@ export const portfolioData: PortfolioData = {
       logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
       linkText: "Ver Proyecto",
       link: "https://github.com/alehinarejos/portfolio-alehinarejos",
-      tech: ["React", "TypeScript", "TailwindCSS"]
+      tech: ["React", "TypeScript", "TailwindCSS"],
+      category: "DESARROLLO_WEB",
+      role: "DISEÑADOR / DEV"
     }
   ],
 

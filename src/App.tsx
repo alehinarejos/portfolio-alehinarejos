@@ -208,11 +208,8 @@ function App() {
 
         <div>
           {portfolioData.projects.map((project, idx) => {
-            // Determine category and details dynamically for technical look
-            const categories = ["FRONT_END", "MÓVIL_IOS", "FRONT_END", "FRONT_END", "DESARROLLO_WEB"];
-            const roles = ["CREADOR / DEV", "DISEÑADOR / DEV", "CREADOR / DEV", "CREADOR / DEV", "DISEÑADOR / DEV"];
-            const currentCat = categories[idx] || "DEVELOPMENT";
-            const currentRole = roles[idx] || "FULL STACK DEV";
+            const currentCat = project.category || "DEVELOPMENT";
+            const currentRole = project.role || "FULL STACK DEV";
 
             return (
               <article key={idx} className="project-sheet">
