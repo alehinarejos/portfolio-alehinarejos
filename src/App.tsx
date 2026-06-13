@@ -39,6 +39,7 @@ function App() {
   const [copiedLink, setCopiedLink] = useState(false);
   const [emailForm, setEmailForm] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(5);
 
   // Sincronizar tema del sistema en tiempo real si el usuario no ha seleccionado uno manualmente
   useEffect(() => {
@@ -207,12 +208,16 @@ function App() {
         </div>
 
         <div>
-          {portfolioData.projects.map((project, idx) => {
+          {portfolioData.projects.slice(0, visibleCount).map((project, idx) => {
             const currentCat = project.category || "DEVELOPMENT";
             const currentRole = project.role || "FULL STACK DEV";
 
             return (
-              <article key={idx} className="project-sheet">
+              <article
+                key={project.title}
+                className="project-sheet project-animate-entrance"
+                style={{ '--index': idx } as React.CSSProperties}
+              >
 
                 {/* Visual Render Card maquetado en CSS técnico */}
                 <div className="project-render-container">
@@ -296,20 +301,59 @@ function App() {
             );
           })}
         </div>
+
+        {portfolioData.projects.length > 5 && (
+          <div className="projects-control-bar">
+            <div className="projects-status-indicator">
+              <span>[ REGISTROS VISIBLES: </span>
+              <span className="indicator-number">
+                {Math.min(visibleCount, portfolioData.projects.length)} / {portfolioData.projects.length}
+              </span>
+              <span> ]</span>
+            </div>
+            <div className="projects-actions">
+              {visibleCount < portfolioData.projects.length && (
+                <button
+                  onClick={() => setVisibleCount(prev => prev + 5)}
+                  className="control-action-btn"
+                >
+                  Ver Más [ + ]
+                </button>
+              )}
+              {visibleCount < portfolioData.projects.length && (
+                <button
+                  onClick={() => setVisibleCount(portfolioData.projects.length)}
+                  className="control-action-btn"
+                >
+                  Ver Todos [ ++ ]
+                </button>
+              )}
+              {visibleCount > 5 && (
+                <button
+                  onClick={() => setVisibleCount(5)}
+                  className="control-action-btn"
+                >
+                  Ver Menos [ - ]
+                </button>
+              )}
+            </div>
+          </div>
+        )}
       </section>
 
-      {/* 📐 SECCIÓN DETALLES / ACERCA DE MÍ Y TRAYECTORIA */}
-      <section className="editorial-double-column">
+      {/* 📐 SECCIÓN DETALLES / ACERCA DE MÍ */}
+      <section style={{ marginBottom: '80px' }}>
+        <div className="section-header-editorial">
+          <h2 className="section-title-editorial">
+            SOBRE MÍ
+          </h2>
+          <span className="section-index">[ PERFIL_02 ]</span>
+        </div>
 
-        {/* Columna Izquierda: Sobre Mí */}
-        <div className="column-editorial">
-          <div className="section-header-editorial" style={{ marginBottom: '16px' }}>
-            <h2 className="section-title-editorial">
-              SOBRE MÍ
-            </h2>
-            <span className="section-index">[ PERFIL_02 ]</span>
-          </div>
-
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <h3 className="editorial-about-title">
+            {portfolioData.about.title.replace(/\n/g, ' ')}
+          </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {portfolioData.about.description.split('\n\n').map((paragraph, idx) => (
               <p key={idx} className="editorial-about-paragraph">
@@ -318,14 +362,43 @@ function App() {
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Columna Derecha: Trayectoria de Educación */}
+      {/* 📐 SECCIÓN EXPERIENCIA Y EDUCACIÓN */}
+      <section className="editorial-double-column" style={{ marginBottom: '60px' }}>
+
+        {/* Columna Izquierda: Experiencia Laboral */}
         <div className="column-editorial">
           <div className="section-header-editorial" style={{ marginBottom: '16px' }}>
             <h2 className="section-title-editorial">
-              TRAYECTORIA
+              EXPERIENCIA PROFESIONAL
             </h2>
-            <span className="section-index">[ HISTORIAL_03 ]</span>
+            <span className="section-index">[ TRAYECTORIA_03 ]</span>
+          </div>
+
+          <div className="technical-timeline">
+            {portfolioData.experience.map((exp, idx) => (
+              <div key={idx} className="timeline-editorial-item">
+                <div className="timeline-date-mono">
+                  {exp.date}
+                </div>
+                <div className="timeline-detail-wrap">
+                  <h4 className="timeline-title-editorial">{exp.title}</h4>
+                  <span className="timeline-subtitle-editorial">{exp.company}</span>
+                  <p className="timeline-desc-editorial">{exp.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Columna Derecha: Formación Académica */}
+        <div className="column-editorial">
+          <div className="section-header-editorial" style={{ marginBottom: '16px' }}>
+            <h2 className="section-title-editorial">
+              FORMACIÓN ACADÉMICA
+            </h2>
+            <span className="section-index">[ HISTORIAL_04 ]</span>
           </div>
 
           <div className="technical-timeline">
@@ -353,7 +426,7 @@ function App() {
             <Terminal size={18} style={{ color: 'var(--accent-color)' }} />
             ESPECIFICACIONES DEL STACK
           </h2>
-          <span className="section-index">[ SISTEMA_04 ]</span>
+          <span className="section-index">[ SISTEMA_05 ]</span>
         </div>
 
         <table className="skills-spec-table">
@@ -416,7 +489,7 @@ function App() {
           <h2 className="section-title-editorial">
             MÓDULO DE CONTACTO
           </h2>
-          <span className="section-index">[ COMUNICACIÓN_05 ]</span>
+          <span className="section-index">[ COMUNICACIÓN_06 ]</span>
         </div>
 
         <form onSubmit={handleFormSubmit} className="technical-contact-form">

@@ -639,9 +639,16 @@ h1, h2, h3, h4 {
   gap: 20px;
 }
 
+.editorial-about-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
 .editorial-about-paragraph {
-  font-size: 0.92rem;
-  line-height: 1.7;
+  font-size: 1rem;
+  line-height: 1.8;
   color: var(--text-secondary);
 }
 
@@ -698,6 +705,7 @@ h1, h2, h3, h4 {
   color: var(--text-secondary);
   line-height: 1.5;
   margin-top: 4px;
+  white-space: pre-wrap;
 }
 
 
@@ -923,4 +931,112 @@ h1, h2, h3, h4 {
 .toast.show {
   transform: translateY(0);
   opacity: 1;
+}
+
+/* 📐 ANIMACIÓN ENTRADA PROYECTOS (Staggered Fade In Up) */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.project-animate-entrance {
+  animation: fadeInUp 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+  animation-delay: calc(var(--index, 0) * 0.08s);
+}
+
+/* 📐 PANEL DE CONTROL DE REGISTROS (Estilo Industrial / Suizo) */
+.projects-control-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  padding: 16px 24px;
+  background-color: var(--bg-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  margin-top: -10px; /* Unión al contenedor */
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+  gap: 16px;
+  transition: border-color var(--transition-speed) ease;
+}
+
+.projects-control-bar:hover {
+  border-color: var(--border-hover);
+}
+
+.projects-status-indicator {
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.projects-status-indicator .indicator-number {
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
+.projects-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.control-action-btn {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 8px 16px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.control-action-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background: var(--bg-secondary);
+}
+
+.control-action-btn:active {
+  transform: translateY(1px);
+}
+
+/* Ajustes responsivos para el panel de control */
+@media (max-width: 600px) {
+  .projects-control-bar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px;
+  }
+  .projects-status-indicator {
+    justify-content: center;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 12px;
+  }
+  .projects-actions {
+    justify-content: center;
+  }
+  .control-action-btn {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+  }
 }

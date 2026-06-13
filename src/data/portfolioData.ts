@@ -16,6 +16,13 @@ export interface Education {
   description: string;
 }
 
+export interface WorkExperience {
+  date: string;
+  title: string;
+  company: string;
+  description: string;
+}
+
 export interface Socials {
   github: string;
   linkedin: string;
@@ -46,6 +53,7 @@ export interface PortfolioData {
   about: AboutInfo;
   projects: Project[];
   education: Education[];
+  experience: WorkExperience[];
 }
 
 export const portfolioData: PortfolioData = {
@@ -166,6 +174,15 @@ export const portfolioData: PortfolioData = {
       title: "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)",
       subtitle: "Florida Universitaria",
       description: "Completado en modalidad semipresencial, especializándome en el desarrollo, implantación y mantenimiento de aplicaciones informáticas multiplataforma."
+    }
+  ],
+
+  experience: [
+    {
+      date: "feb. 2024 - mar. 2025",
+      title: "Desarrollador de full stack",
+      company: "DIGITAL VALUE S.L",
+      description: "He desarrollado diversas aplicaciones web utilizando el framework Mithril.js, logrando una experiencia de usuario fluida y un rendimiento eficiente. Además, tengo experiencia en la gestión y mantenimiento de portales web con Drupal, implementando soluciones personalizadas para la administración de contenidos y asegurando la seguridad y actualización de los sitios.\n\nHe trabajado en desarrollo y gestión de backend mediante APIs, mejorando la integración y funcionalidad de las aplicaciones web. También he diseñado, desarrollado y mantenido sitios web en WordPress, personalizando temas y plugins para satisfacer las necesidades específicas de los clientes, garantizando un rendimiento óptimo y una alta disponibilidad.\n\nAlgunos de los proyectos en los que he trabajado:\n- Creación de la página web del mercado de Villareal y su correcta implementación.\n- Elaboración de diferentes plantillas web.\n- Elaboración de varios kit digitales.\n- Desarrollo de una web de plantillas, para su uso como temas (estilo temas de wordpress).\n\nTecnologías empleadas: HTML5, CSS, JS, Mithril.js, PHP, WordPress, Drupal"
     }
   ]
 };
