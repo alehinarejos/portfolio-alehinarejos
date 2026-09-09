@@ -170,7 +170,7 @@ export const portfolioData: PortfolioData = {
       description: "Desde 0. Usando IA. 16 proyectos REALES. 160 ejercicios de código. Machine Learning, Data Science, Django, Juegos y más!"
     },
     {
-      date: "2026",
+      date: "2025 - 2026",
       title: "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)",
       subtitle: "Florida Universitaria",
       description: "Completado en modalidad semipresencial, especializándome en el desarrollo, implantación y mantenimiento de aplicaciones informáticas multiplataforma."
