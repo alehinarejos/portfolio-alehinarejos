@@ -89,7 +89,7 @@ export const portfolioData: PortfolioData = {
         "Dashboard de telemetría y tiempos de Fórmula 1 en tiempo real, construido con React, TypeScript y Vite.",
       logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
       linkText: "Ver Proyecto",
-      link: "https://github.com/alehinarejos/TelemetryF1",
+      link: "https://github.com/alehinarejos/Overcut-F1",
       tech: ["Next.js", "Tailwind CSS", "Leaflet", "TypeScript"],
       category: "FRONT_END",
       role: "CREADOR / DEV"
