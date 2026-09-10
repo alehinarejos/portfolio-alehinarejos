@@ -84,13 +84,13 @@ export const portfolioData: PortfolioData = {
 
   projects: [
     {
-      title: "Notify My World Cup 2026",
+      title: "Telemetry F1",
       description:
-        "Aplicación web interactiva para seguir el calendario oficial de la Copa Mundial de la FIFA 2026, simular resultados, calcular clasificaciones en tiempo real y programar recordatorios personalizados.",
-      logo: "/notifymyworldcup.svg",
+        "Dashboard de telemetría y tiempos de Fórmula 1 en tiempo real, construido con React, TypeScript y Vite.",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
       linkText: "Ver Proyecto",
-      link: "https://github.com/alehinarejos/NotifyMyWorldCup",
-      tech: ["React 19", "TypeScript", "Vite", "Vanilla CSS", "Lucide React"],
+      link: "https://github.com/alehinarejos/TelemetryF1",
+      tech: ["Next.js", "Tailwind CSS", "Leaflet", "TypeScript"],
       category: "FRONT_END",
       role: "CREADOR / DEV"
     },
@@ -102,6 +102,17 @@ export const portfolioData: PortfolioData = {
       linkText: "Ver Proyecto",
       link: "https://github.com/alehinarejos/infoeducv",
       tech: ["Next.js", "Tailwind CSS", "Leaflet", "TypeScript"],
+      category: "FRONT_END",
+      role: "CREADOR / DEV"
+    },
+    {
+      title: "Notify My World Cup 2026",
+      description:
+        "Aplicación web interactiva para seguir el calendario oficial de la Copa Mundial de la FIFA 2026, simular resultados, calcular clasificaciones en tiempo real y programar recordatorios personalizados.",
+      logo: "/notifymyworldcup.svg",
+      linkText: "Ver Proyecto",
+      link: "https://github.com/alehinarejos/NotifyMyWorldCup",
+      tech: ["React 19", "TypeScript", "Vite", "Vanilla CSS", "Lucide React"],
       category: "FRONT_END",
       role: "CREADOR / DEV"
     },
