@@ -84,7 +84,7 @@ export const portfolioData: PortfolioData = {
 
   projects: [
     {
-      title: "Telemetry F1",
+      title: "Overcut F1",
       description:
         "Dashboard de telemetría y tiempos de Fórmula 1 en tiempo real, construido con React, TypeScript y Vite.",
       logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
