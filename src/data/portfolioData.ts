@@ -84,12 +84,12 @@ export const portfolioData: PortfolioData = {
 
   projects: [
     {
-      title: "Overcut F1",
+      title: "Undercut F1",
       description:
         "Dashboard de telemetría y tiempos de Fórmula 1 en tiempo real, construido con React, TypeScript y Vite.",
       logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
       linkText: "Ver Proyecto",
-      link: "https://github.com/alehinarejos/Overcut-F1",
+      link: "https://github.com/alehinarejos/Undercut-F1",
       tech: ["Next.js", "Tailwind CSS", "Leaflet", "TypeScript"],
       category: "FRONT_END",
       role: "CREADOR / DEV"
