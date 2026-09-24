@@ -4,9 +4,18 @@ export interface Project {
   logo: string;
   linkText: string;
   link: string;
+  demoUrl?: string;
+  previewImage?: string;
   tech?: string[];
   category?: string;
   role?: string;
+  featured?: boolean;
+}
+
+export interface StatItem {
+  value: string;
+  label: string;
+  detail: string;
 }
 
 export interface Education {
@@ -46,14 +55,30 @@ export interface AboutInfo {
   description: string;
 }
 
+export interface ResumeInfo {
+  fileUrl: string;
+  fileName: string;
+  fileSize: string;
+  lastUpdated: string;
+  role: string;
+  summary: string;
+  badges: string[];
+  highlights: {
+    label: string;
+    value: string;
+  }[];
+}
+
 export interface PortfolioData {
   main: MainInfo;
   socials: Socials;
   homepage: HomepageInfo;
   about: AboutInfo;
+  stats: StatItem[];
   projects: Project[];
   education: Education[];
   experience: WorkExperience[];
+  cv: ResumeInfo;
 }
 
 export const portfolioData: PortfolioData = {
@@ -61,7 +86,7 @@ export const portfolioData: PortfolioData = {
     title: "Portfolio by Alejandro Hinarejos",
     name: "Alejandro Hinarejos",
     email: "jandrohinarejos@gmail.com",
-    logo: "/logo.png", // Pointing directly to copied public logo
+    logo: "/logo.png",
   },
 
   socials: {
@@ -69,6 +94,13 @@ export const portfolioData: PortfolioData = {
     linkedin: "https://linkedin.com/in/alejandro-hinarejos-gonzalez-0b7982276/",
     instagram: "https://instagram.com/alehinarejos"
   },
+
+  stats: [
+    { value: "+2", label: "AÑOS EXPERIENCIA", detail: "Front-end & Back-end" },
+    { value: "7+", label: "PROYECTOS OPEN SOURCE", detail: "Web, APIs & Mobile" },
+    { value: "2", label: "TITULACIONES OFICIALES", detail: "CFGS DAM + CFGS DAW" },
+    { value: "100%", label: "DISPONIBILIDAD", detail: "Incorporación inmediata" }
+  ],
 
   homepage: {
     title: "Alejandro Hinarejos, \nFull Stack Developer",
@@ -86,54 +118,66 @@ export const portfolioData: PortfolioData = {
     {
       title: "Undercut F1",
       description:
-        "Dashboard de telemetría y tiempos de Fórmula 1 en tiempo real, construido con React, TypeScript y Vite.",
+        "Dashboard de telemetría y tiempos de Fórmula 1 en tiempo real con sector timings, deltas entre pilotos y mapas dinámicos de circuitos.",
       logo: "/undercut.svg",
-      linkText: "Ver Proyecto",
+      linkText: "Código GitHub",
       link: "https://github.com/alehinarejos/Undercut-F1",
-      tech: ["Next.js", "Tailwind CSS", "Leaflet", "TypeScript"],
+      demoUrl: "https://undercut-f1-live.vercel.app/",
+      previewImage: "/previews/undercut-f1-real.png",
+      tech: ["React", "TypeScript", "Vite", "Tailwind CSS"],
       category: "FRONT_END",
-      role: "CREADOR / DEV"
+      role: "CREADOR / DEV",
+      featured: true
     },
     {
       title: "InfoEdu CV",
       description:
-        "Buscador interactivo de centros educativos y FP en la Comunitat Valenciana. Construido con Next.js, Tailwind CSS y Leaflet para mapas dinámicos.",
+        "Buscador interactivo de centros educativos y formación profesional en la Comunitat Valenciana con mapas dinámicos y geolocalización.",
       logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-      linkText: "Ver Proyecto",
+      linkText: "Código GitHub",
       link: "https://github.com/alehinarejos/infoeducv",
+      demoUrl: "https://info-edu-cv.vercel.app",
+      previewImage: "/previews/infoedu-cv-real.png",
       tech: ["Next.js", "Tailwind CSS", "Leaflet", "TypeScript"],
       category: "FRONT_END",
-      role: "CREADOR / DEV"
+      role: "CREADOR / DEV",
+      featured: true
     },
     {
       title: "Notify My World Cup 2026",
       description:
-        "Aplicación web interactiva para seguir el calendario oficial de la Copa Mundial de la FIFA 2026, simular resultados, calcular clasificaciones en tiempo real y programar recordatorios personalizados.",
+        "Aplicación web interactiva para seguir el calendario oficial de la Copa Mundial FIFA 2026, simular resultados, calcular clasificaciones y programar recordatorios.",
       logo: "/notifymyworldcup.svg",
-      linkText: "Ver Proyecto",
+      linkText: "Código GitHub",
       link: "https://github.com/alehinarejos/NotifyMyWorldCup",
+      demoUrl: "https://notify-my-world-cup.vercel.app/",
+      previewImage: "/previews/worldcup-2026-real.png",
       tech: ["React 19", "TypeScript", "Vite", "Vanilla CSS", "Lucide React"],
       category: "FRONT_END",
-      role: "CREADOR / DEV"
+      role: "CREADOR / DEV",
+      featured: true
     },
     {
       title: "Dopamine Lock",
       description:
-        "Aplicación de productividad para iOS diseñada para combatir la adicción a las redes sociales mediante refuerzo positivo y ejercicio físico.",
+        "Aplicación nativa para iOS diseñada para combatir la adicción a las pantallas mediante refuerzo positivo, retos de entrenamiento y temporizadores de foco.",
       logo: "https://images.icon-icons.com/2699/PNG/512/swift_logo_icon_168770.png",
-      linkText: "Ver Proyecto",
+      linkText: "Código GitHub",
       link: "https://github.com/alehinarejos/dopamine-blocker",
-      tech: ["Swift", "SwiftUI", "iOS"],
+      previewImage: "/previews/dopamine-lock-real.png",
+      tech: ["Swift", "SwiftUI", "iOS SDK"],
       category: "MÓVIL_IOS",
-      role: "DISEÑADOR / DEV"
+      role: "DISEÑADOR / DEV",
+      featured: true
     },
     {
       title: "Calculadora de propinas",
       description:
-        "Proyecto de cálculo de propinas que demuestra mis habilidades en desarrollo web con React, TypeScript y TailwindCSS.",
+        "Herramienta web ágil de cálculo y desglose automático de consumo y propinas con reactividad instantánea.",
       logo: "https://cdn.jsdelivr.net/npm/programming-languages-logos/src/typescript/typescript.png",
-      linkText: "Ver Proyecto",
+      linkText: "Código GitHub",
       link: "https://github.com/alehinarejos/calculadora_propinas",
+      previewImage: "/previews/tips-calculator.jpg",
       tech: ["React", "TypeScript", "TailwindCSS"],
       category: "FRONT_END",
       role: "CREADOR / DEV"
@@ -141,38 +185,38 @@ export const portfolioData: PortfolioData = {
     {
       title: "Calorie Tracker",
       description:
-        "Proyecto de gestión de calorías utilizando tecnologías como React, TypeScript y TailwindCSS.",
+        "Aplicación web de control y seguimiento de balance calórico, ingesta de macronutrientes y actividad física.",
       logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-      linkText: "Ver Proyecto",
+      linkText: "Código GitHub",
       link: "https://github.com/alehinarejos/calorie-tracker",
+      demoUrl: "https://calorie-tracker-peach.vercel.app",
+      previewImage: "/previews/calorie-tracker-real.png",
       tech: ["React", "TypeScript", "TailwindCSS"],
       category: "FRONT_END",
       role: "CREADOR / DEV"
     },
     {
-      title: "Portfolio",
-      description: "Este sitio web es una muestra de mi trabajo y habilidades, incluyendo proyectos de desarrollo web, experiencia profesional y mi enfoque en crear aplicaciones interactivas y fáciles de usar.",
+      title: "Portfolio Liquid Glass",
+      description:
+        "Portafolio interactivo con diseño Liquid Glass, tema en tiempo real, dossier de CV descargable y paleta de comandos ⌘K.",
       logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-      linkText: "Ver Proyecto",
+      linkText: "Código GitHub",
       link: "https://github.com/alehinarejos/portfolio-alehinarejos",
-      tech: ["React", "TypeScript", "TailwindCSS"],
-      category: "DESARROLLO_WEB",
+      demoUrl: "https://portfolio-alehinarejos.vercel.app",
+      previewImage: "/previews/portfolio-glass-real.png",
+      tech: ["React 19", "TypeScript", "Vite", "Liquid Glass CSS"],
+      category: "FULL_STACK",
       role: "DISEÑADOR / DEV"
     }
   ],
 
+
   education: [
     {
-      date: "2022 - 2024",
-      title: "Técnico en Desarrollo de Aplicaciones Web (DAW)",
-      subtitle: "IES Conselleria",
-      description: "Desarrollo web adquiriendo conocimientos sólidos en JavaScript, HTML5, PHP y CSS."
-    },
-    {
-      date: "2025",
-      title: "React - Guía definitiva",
-      subtitle: "Udemy",
-      description: "Profundización en React: hooks, router, redux, next y desarrollo de proyectos reales."
+      date: "2025 - Actualidad",
+      title: "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)",
+      subtitle: "Florida Universitaria, Valencia",
+      description: "Especialización en desarrollo, implantación y mantenimiento de aplicaciones informáticas multiplataforma, sistemas cliente-servidor y arquitectura de software."
     },
     {
       date: "2025",
@@ -181,19 +225,55 @@ export const portfolioData: PortfolioData = {
       description: "Desde 0. Usando IA. 16 proyectos REALES. 160 ejercicios de código. Machine Learning, Data Science, Django, Juegos y más!"
     },
     {
-      date: "2025 - 2026",
-      title: "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)",
-      subtitle: "Florida Universitaria",
-      description: "Completado en modalidad semipresencial, especializándome en el desarrollo, implantación y mantenimiento de aplicaciones informáticas multiplataforma."
+      date: "2025",
+      title: "React - Guía definitiva",
+      subtitle: "Udemy",
+      description: "Profundización en React: hooks, router, redux, next y desarrollo de proyectos reales."
+    },
+    {
+      date: "09/2022 - 06/2024",
+      title: "Técnico Superior en Desarrollo de Aplicaciones Web (DAW)",
+      subtitle: "IES Consellería, Valencia",
+      description: "Desarrollo web adquiriendo conocimientos sólidos en JavaScript, HTML5, PHP, CSS y arquitectura MVC."
     }
   ],
 
   experience: [
     {
-      date: "feb. 2024 - mar. 2025",
-      title: "Desarrollador de full stack",
-      company: "DIGITAL VALUE S.L",
-      description: "He desarrollado diversas aplicaciones web utilizando el framework Mithril.js, logrando una experiencia de usuario fluida y un rendimiento eficiente. Además, tengo experiencia en la gestión y mantenimiento de portales web con Drupal, implementando soluciones personalizadas para la administración de contenidos y asegurando la seguridad y actualización de los sitios.\n\nHe trabajado en desarrollo y gestión de backend mediante APIs, mejorando la integración y funcionalidad de las aplicaciones web. También he diseñado, desarrollado y mantenido sitios web en WordPress, personalizando temas y plugins para satisfacer las necesidades específicas de los clientes, garantizando un rendimiento óptimo y una alta disponibilidad.\n\nAlgunos de los proyectos en los que he trabajado:\n- Creación de la página web del mercado de Villareal y su correcta implementación.\n- Elaboración de diferentes plantillas web.\n- Elaboración de varios kit digitales.\n- Desarrollo de una web de plantillas, para su uso como temas (estilo temas de wordpress).\n\nTecnologías empleadas: HTML5, CSS, JS, Mithril.js, PHP, WordPress, Drupal"
+      date: "02/2024 - 03/2025",
+      title: "Programador Full-Stack / Full Stack Developer",
+      company: "Digital Value, Valencia",
+      description:
+        "• Desarrollé y desplegué ecosistemas web escalables con JavaScript (Mithril.js / React.js), WordPress y Drupal, reduciendo en aproximadamente un 20% los tiempos de carga de las aplicaciones.\n• Diseñé sistemas de componentes y plantillas reutilizables en JavaScript y HTML5, acelerando en torno a un 30% el tiempo de entrega de nuevos productos digitales.\n• Integré y consumí APIs REST bajo arquitectura MVC para automatizar flujos de datos entre sistemas, mejorando la fiabilidad de la sincronización de datos.\n• Utilicé Angular JS y herramientas de automatización de tareas como Grunt para optimizar el flujo de trabajo de desarrollo front-end.\n• Colaboré con equipos multidisciplinares para identificar y eliminar cuellos de botella técnicos, mejorando la estabilidad general de la plataforma."
     }
-  ]
+  ],
+
+  cv: {
+    fileUrl: "/Alejandro_Hinarejos_CV.pdf",
+    fileName: "Alejandro_Hinarejos_CV.pdf",
+    fileSize: "48 KB",
+    lastUpdated: "2025 - 2026",
+    role: "Desarrollador de Software / Full Stack Developer",
+    summary:
+      "Documento curricular oficial con experiencia en desarrollo Full-Stack (JavaScript, PHP, React, Angular, Laravel, Node.js), titulaciones DAM y DAW, integraciones de APIs y gestión de bases de datos.",
+    badges: ["PDF OFICIAL", "INCORPORACIÓN INMEDIATA", "VEHÍCULO PROPIO", "INGLÉS INTERMEDIO (A2)"],
+    highlights: [
+      {
+        label: "Perfil Profesional",
+        value: "Desarrollador Full-Stack enfocado en soluciones escalables, optimización de tiempos de carga y flujos de datos automatizados."
+      },
+      {
+        label: "Experiencia Laboral",
+        value: "Full-Stack Developer en Digital Value (Mithril.js, React, WordPress, Drupal, APIs REST, Grunt)."
+      },
+      {
+        label: "Formación Oficial",
+        value: "CFGS DAM (Florida Universitaria) · CFGS DAW (IES Consellería) · Cursos OpenWebinars."
+      },
+      {
+        label: "Disponibilidad",
+        value: "Incorporación inmediata · Carné de conducir B y vehículo propio · Movilidad activa."
+      }
+    ]
+  }
 };
