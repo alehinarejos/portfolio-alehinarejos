@@ -17,6 +17,8 @@ export interface Translations {
   share: string;
   copied: string;
   downloadCv: string;
+  settingsTitle: string;
+  settingsClose: string;
   
   // Stats
   stat1Label: string;
@@ -141,6 +143,8 @@ export const translations: Record<Language, Translations> = {
     share: 'COMPARTIR',
     copied: 'COPIADO',
     downloadCv: 'DESCARGAR CV',
+    settingsTitle: 'PERSONALIZACIÓN & AJUSTES',
+    settingsClose: 'Cerrar',
 
     stat1Label: 'Años de Experiencia',
     stat1Detail: 'Front-end & Back-end',
@@ -253,6 +257,8 @@ export const translations: Record<Language, Translations> = {
     share: 'SHARE',
     copied: 'COPIED',
     downloadCv: 'DOWNLOAD CV',
+    settingsTitle: 'CUSTOMIZATION & SETTINGS',
+    settingsClose: 'Close',
 
     stat1Label: 'Years of Experience',
     stat1Detail: 'Front-end & Back-end',

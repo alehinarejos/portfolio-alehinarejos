@@ -343,10 +343,38 @@ function App() {
 
             {/* PANEL DE CONTROL TÉCNICO */}
             <div ref={settingsRef} className={`settings-panel ${isSettingsOpen ? 'mobile-expanded' : ''}`}>
+              {/* BACKDROP OVERLAY FOR MOBILE */}
+              {isSettingsOpen && (
+                <div
+                  className="settings-backdrop-overlay"
+                  onClick={() => setIsSettingsOpen(false)}
+                  aria-hidden="true"
+                />
+              )}
+
               <div className="settings-controls-group">
+                {/* Mobile Drawer Header */}
+                <div className="settings-modal-header">
+                  <div className="settings-modal-handle" />
+                  <div className="settings-modal-title-row">
+                    <span className="settings-modal-title">
+                      <Palette size={14} style={{ color: 'var(--accent-color)' }} />
+                      {t.settingsTitle}
+                    </span>
+                    <button
+                      onClick={() => setIsSettingsOpen(false)}
+                      className="settings-modal-close-btn"
+                      aria-label={t.settingsClose}
+                      type="button"
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+                </div>
+
                 <div className="control-row">
                   <span className="control-label">{t.theme}</span>
-                  <div className="control-options">
+                  <div className="control-options control-options-theme">
                     {(['liquid', 'slate', 'frost'] as Theme[]).map((thm) => (
                       <button
                         key={thm}
@@ -361,15 +389,16 @@ function App() {
 
                 <div className="control-row">
                   <span className="control-label">{t.accent}</span>
-                  <div className="control-options">
+                  <div className="control-options control-options-accent">
                     {(['cyan', 'purple', 'orange', 'emerald', 'white'] as Accent[]).map((a) => (
                       <button
                         key={a}
                         onClick={() => setAccent(a)}
-                        className={`control-btn ${accent === a ? 'active' : ''}`}
+                        className={`control-btn control-btn-accent ${accent === a ? 'active' : ''}`}
+                        title={a.toUpperCase()}
                       >
                         <span className={`accent-btn-indicator ${a}`} />
-                        {a}
+                        <span className="accent-btn-label">{a}</span>
                       </button>
                     ))}
                   </div>
@@ -377,7 +406,7 @@ function App() {
 
                 <div className="control-row">
                   <span className="control-label">{t.language}</span>
-                  <div className="control-options">
+                  <div className="control-options control-options-lang">
                     {(['es', 'en'] as Language[]).map((l) => (
                       <button
                         key={l}
