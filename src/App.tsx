@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import {
   Mail,
   Copy,
@@ -28,7 +28,8 @@ import {
   Laptop,
   ChevronDown,
   ChevronUp,
-  GitBranch
+  GitBranch,
+  Palette
 } from 'lucide-react';
 import { portfolioData } from './data/portfolioData';
 import { type Language, translations } from './data/translations';
@@ -36,7 +37,7 @@ import { FloatingDock } from './components/FloatingDock';
 import { GitHubActivity } from './components/GitHubActivity';
 
 type Theme = 'liquid' | 'slate' | 'frost';
-type Accent = 'cyan' | 'purple' | 'orange' | 'emerald';
+type Accent = 'cyan' | 'purple' | 'orange' | 'emerald' | 'white';
 type CategoryFilter = 'ALL' | 'FRONT_END' | 'MÓVIL_IOS' | 'FULL_STACK';
 
 function App() {
@@ -49,9 +50,12 @@ function App() {
 
   const [accent, setAccent] = useState<Accent>(() => {
     const saved = localStorage.getItem('portfolio-accent') as Accent;
-    if (['cyan', 'purple', 'orange', 'emerald'].includes(saved)) return saved;
+    if (['cyan', 'purple', 'orange', 'emerald', 'white'].includes(saved)) return saved;
     return 'cyan';
   });
+
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const settingsRef = useRef<HTMLDivElement>(null);
 
   const [lang, setLang] = useState<Language>(() => {
     const saved = localStorage.getItem('portfolio-lang');
@@ -121,6 +125,7 @@ function App() {
       'accent-purple',
       'accent-orange',
       'accent-emerald',
+      'accent-white',
       'accent-mono',
       'accent-blue',
       'accent-red'
@@ -128,6 +133,22 @@ function App() {
     document.body.classList.add(`accent-${accent}`);
     localStorage.setItem('portfolio-accent', accent);
   }, [accent]);
+
+  // Cerrar panel de ajustes flotante al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (settingsRef.current && !settingsRef.current.contains(e.target as Node)) {
+        setIsSettingsOpen(false);
+      }
+    };
+
+    if (isSettingsOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isSettingsOpen]);
 
   // Global listener para Command Palette (⌘K o Ctrl+K) y tecla Escape
   useEffect(() => {
@@ -138,6 +159,7 @@ function App() {
       }
       if (e.key === 'Escape') {
         setIsCommandMenuOpen(false);
+        setIsSettingsOpen(false);
       }
     };
 
@@ -279,7 +301,8 @@ function App() {
         { label: 'Acento Cian Neón', icon: <span className="accent-btn-indicator cyan" />, action: () => { setAccent('cyan'); setIsCommandMenuOpen(false); }, tag: accent === 'cyan' ? 'ACTIVO' : '' },
         { label: 'Acento Púrpura Eléctrico', icon: <span className="accent-btn-indicator purple" />, action: () => { setAccent('purple'); setIsCommandMenuOpen(false); }, tag: accent === 'purple' ? 'ACTIVO' : '' },
         { label: 'Acento Naranja Solar', icon: <span className="accent-btn-indicator orange" />, action: () => { setAccent('orange'); setIsCommandMenuOpen(false); }, tag: accent === 'orange' ? 'ACTIVO' : '' },
-        { label: 'Acento Esmeralda Cuántico', icon: <span className="accent-btn-indicator emerald" />, action: () => { setAccent('emerald'); setIsCommandMenuOpen(false); }, tag: accent === 'emerald' ? 'ACTIVO' : '' }
+        { label: 'Acento Esmeralda Cuántico', icon: <span className="accent-btn-indicator emerald" />, action: () => { setAccent('emerald'); setIsCommandMenuOpen(false); }, tag: accent === 'emerald' ? 'ACTIVO' : '' },
+        { label: 'Acento Blanco Puro', icon: <span className="accent-btn-indicator white" />, action: () => { setAccent('white'); setIsCommandMenuOpen(false); }, tag: accent === 'white' ? 'ACTIVO' : '' }
       ]
     }
   ];
@@ -319,51 +342,75 @@ function App() {
             </div>
 
             {/* PANEL DE CONTROL TÉCNICO */}
-            <div className="settings-panel">
-              <div className="control-row">
-                <span className="control-label">{t.theme}</span>
-                <div className="control-options">
-                  {(['liquid', 'slate', 'frost'] as Theme[]).map((thm) => (
-                    <button
-                      key={thm}
-                      onClick={() => setTheme(thm)}
-                      className={`control-btn ${theme === thm ? 'active' : ''}`}
-                    >
-                      {thm}
-                    </button>
-                  ))}
+            <div ref={settingsRef} className={`settings-panel ${isSettingsOpen ? 'mobile-expanded' : ''}`}>
+              <div className="settings-controls-group">
+                <div className="control-row">
+                  <span className="control-label">{t.theme}</span>
+                  <div className="control-options">
+                    {(['liquid', 'slate', 'frost'] as Theme[]).map((thm) => (
+                      <button
+                        key={thm}
+                        onClick={() => setTheme(thm)}
+                        className={`control-btn ${theme === thm ? 'active' : ''}`}
+                      >
+                        {thm}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              <div className="control-row">
-                <span className="control-label">{t.accent}</span>
-                <div className="control-options">
-                  {(['cyan', 'purple', 'orange', 'emerald'] as Accent[]).map((a) => (
-                    <button
-                      key={a}
-                      onClick={() => setAccent(a)}
-                      className={`control-btn ${accent === a ? 'active' : ''}`}
-                    >
-                      <span className={`accent-btn-indicator ${a}`} />
-                      {a}
-                    </button>
-                  ))}
+                <div className="control-row">
+                  <span className="control-label">{t.accent}</span>
+                  <div className="control-options">
+                    {(['cyan', 'purple', 'orange', 'emerald', 'white'] as Accent[]).map((a) => (
+                      <button
+                        key={a}
+                        onClick={() => setAccent(a)}
+                        className={`control-btn ${accent === a ? 'active' : ''}`}
+                      >
+                        <span className={`accent-btn-indicator ${a}`} />
+                        {a}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              <div className="control-row">
-                <span className="control-label">{t.language}</span>
-                <div className="control-options">
-                  {(['es', 'en'] as Language[]).map((l) => (
-                    <button
-                      key={l}
-                      onClick={() => setLang(l)}
-                      className={`control-btn ${lang === l ? 'active' : ''}`}
-                      title={l === 'es' ? 'Español' : 'English'}
-                    >
-                      {l.toUpperCase()}
-                    </button>
-                  ))}
+                <div className="control-row">
+                  <span className="control-label">{t.language}</span>
+                  <div className="control-options">
+                    {(['es', 'en'] as Language[]).map((l) => (
+                      <button
+                        key={l}
+                        onClick={() => setLang(l)}
+                        className={`control-btn ${lang === l ? 'active' : ''}`}
+                        title={l === 'es' ? 'Español' : 'English'}
+                      >
+                        {l.toUpperCase()}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Acciones secundarias en móvil dentro del menú desplegable */}
+                <div className="mobile-secondary-actions">
+                  <button
+                    onClick={copyPortfolioLink}
+                    className="control-btn header-share-btn"
+                  >
+                    <Share2 size={12} />
+                    {copiedLink ? t.copied : t.share}
+                  </button>
+
+                  <a
+                    href={portfolioData.cv.fileUrl}
+                    download={portfolioData.cv.fileName}
+                    onClick={handleDownloadCV}
+                    className="control-btn header-cv-btn"
+                    title="Descargar Curriculum Vitae en PDF"
+                  >
+                    <FileDown size={12} style={{ color: 'var(--accent-color)' }} />
+                    {t.downloadCv}
+                  </a>
                 </div>
               </div>
 
@@ -373,14 +420,27 @@ function App() {
                   onClick={() => setIsCommandMenuOpen(true)}
                   className="control-btn command-trigger-btn"
                   title="Abrir paleta de comandos rápida (⌘K)"
+                  aria-label={t.commands}
                 >
-                  <Command size={12} style={{ color: 'var(--accent-color)' }} />
+                  <Command size={12} className="command-icon-desktop" style={{ color: 'var(--accent-color)' }} />
+                  <Search size={14} className="command-icon-mobile" style={{ color: 'var(--accent-color)' }} />
                   <span>{t.commands}</span>
                 </button>
 
                 <button
+                  onClick={() => setIsSettingsOpen(prev => !prev)}
+                  className={`control-btn settings-toggle-btn ${isSettingsOpen ? 'active' : ''}`}
+                  title="Ajustes de personalización"
+                  aria-label="Ajustes de personalización"
+                  aria-expanded={isSettingsOpen}
+                >
+                  <Palette size={14} style={{ color: 'var(--accent-color)' }} />
+                  <span className="settings-toggle-label">{t.accent} / {t.theme}</span>
+                </button>
+
+                <button
                   onClick={copyPortfolioLink}
-                  className="control-btn header-share-btn"
+                  className="control-btn header-share-btn desktop-only"
                 >
                   <Share2 size={12} />
                   {copiedLink ? t.copied : t.share}
@@ -390,7 +450,7 @@ function App() {
                   href={portfolioData.cv.fileUrl}
                   download={portfolioData.cv.fileName}
                   onClick={handleDownloadCV}
-                  className="control-btn header-cv-btn"
+                  className="control-btn header-cv-btn desktop-only"
                   title="Descargar Curriculum Vitae en PDF"
                 >
                   <FileDown size={12} style={{ color: 'var(--accent-color)' }} />

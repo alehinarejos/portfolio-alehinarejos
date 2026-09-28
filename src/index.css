@@ -107,6 +107,33 @@ body.accent-emerald {
   --accent-dim: rgba(52, 211, 153, 0.14);
 }
 
+body.accent-white {
+  --accent-color: #ffffff;
+  --accent-rgb: 255, 255, 255;
+  --accent-dim: rgba(255, 255, 255, 0.15);
+}
+
+/* Legibilidad en temas claros (Frost / Light) con acento blanco */
+body.theme-frost.accent-white,
+body.theme-light.accent-white {
+  --accent-color: #0f172a;
+  --accent-rgb: 15, 23, 42;
+  --accent-dim: rgba(15, 23, 42, 0.10);
+}
+
+body.theme-frost.accent-white .control-btn.active,
+body.theme-light.accent-white .control-btn.active {
+  background: #0f172a;
+  color: #ffffff !important;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.35);
+}
+
+body.accent-white .control-btn.active {
+  background: #ffffff;
+  color: #0b0f17 !important;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 2px 10px rgba(255, 255, 255, 0.45);
+}
+
 body.accent-red {
   --accent-color: #f43f5e;
   --accent-rgb: 244, 63, 94;
@@ -342,69 +369,201 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 768px) {
-  .settings-panel {
-    align-items: flex-start;
-    width: 100%;
-    margin-top: 10px;
-  }
-}
-
-@media (max-width: 580px) {
-  .editorial-header-top {
-    gap: 16px;
-  }
   .editorial-title {
-    font-size: 2.35rem;
-    line-height: 0.95;
-    word-break: break-word;
+    font-size: 2.5rem;
   }
+
+  .editorial-header {
+    gap: 16px;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+  }
+
+  .editorial-header-top {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  /* Command trigger compact button in mobile */
+  .command-icon-desktop {
+    display: none;
+  }
+
+  .command-icon-mobile {
+    display: block;
+  }
+
+  .command-trigger-btn {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--glass-shadow);
+    color: var(--text-primary);
+  }
+
+  .command-trigger-btn span {
+    display: none !important;
+  }
+
+  .command-trigger-btn:hover {
+    border-color: var(--accent-color);
+    background: rgba(var(--accent-rgb), 0.18);
+    color: var(--text-primary);
+  }
+
+  /* Discrete Settings Toggle Button in mobile */
+  .settings-toggle-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--glass-shadow);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .settings-toggle-btn .settings-toggle-label {
+    display: none;
+  }
+
+  .settings-toggle-btn:hover,
+  .settings-toggle-btn.active {
+    border-color: var(--accent-color);
+    background: rgba(var(--accent-rgb), 0.2);
+    color: var(--text-primary);
+  }
+
+  /* Liquid Glass Settings Panel in mobile: collapsed floating menu */
   .settings-panel {
-    padding: 12px 14px;
-    align-items: stretch;
-    border-radius: 14px;
+    position: relative;
+    align-items: flex-end;
+    width: auto;
+    margin-top: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
-  .control-row {
+
+  .header-actions-group {
+    display: flex;
+    gap: 8px;
+    margin-top: 0;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  /* Floating controls dropdown on mobile */
+  .settings-controls-group {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 100;
+    width: 290px;
+    max-width: calc(100vw - 32px);
+    background: var(--bg-glass-card);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 16px 14px;
+    box-shadow: var(--glass-shadow-hover), 0 10px 30px rgba(0, 0, 0, 0.45);
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    animation: fadeInDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .settings-panel.mobile-expanded .settings-controls-group {
+    display: flex;
+  }
+
+  .settings-controls-group .control-row {
     flex-direction: column;
     align-items: stretch;
-    width: 100%;
     gap: 6px;
+    width: 100%;
   }
-  .control-label {
+
+  .settings-controls-group .control-label {
     width: auto;
     font-size: 0.68rem;
   }
-  .control-options {
+
+  .settings-controls-group .control-options {
     width: 100%;
     display: flex;
     justify-content: space-between;
   }
-  .control-options .control-btn {
+
+  .settings-controls-group .control-options .control-btn {
     flex: 1;
     text-align: center;
     justify-content: center;
-    padding: 6px 4px;
+    padding: 6px 2px;
     font-size: 0.68rem;
   }
-  .header-actions-group {
-    width: 100%;
+
+  .mobile-secondary-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
-    margin-top: 6px;
-  }
-  .header-actions-group .command-trigger-btn {
-    justify-content: center;
+    margin-top: 4px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
     width: 100%;
   }
-  .header-share-btn {
-    justify-content: center;
+
+  .mobile-secondary-actions .header-share-btn,
+  .mobile-secondary-actions .header-cv-btn {
     width: 100%;
+    justify-content: center;
+    font-size: 0.72rem;
+    padding: 8px 10px;
+    border-radius: 8px;
   }
-  .header-cv-btn {
-    grid-column: 1 / -1;
-    justify-content: center;
-    width: 100%;
-    padding: 9px 14px;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 580px) {
+  .editorial-title {
+    font-size: 2.35rem;
+    line-height: 0.95;
+    word-break: break-word;
   }
 }
 
@@ -473,9 +632,42 @@ h1, h2, h3, h4, h5, h6 {
 .accent-btn-indicator.purple { background-color: #c084fc; }
 .accent-btn-indicator.orange { background-color: #fb923c; }
 .accent-btn-indicator.emerald { background-color: #34d399; }
+.accent-btn-indicator.white {
+  background-color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+body.theme-frost .accent-btn-indicator.white,
+body.theme-light .accent-btn-indicator.white {
+  border: 1px solid rgba(15, 23, 42, 0.4);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
 .accent-btn-indicator.blue { background-color: #38bdf8; }
 .accent-btn-indicator.red { background-color: #f43f5e; }
 .accent-btn-indicator.mono { background-color: #38bdf8; }
+
+.command-icon-mobile {
+  display: none;
+}
+
+.command-icon-desktop {
+  display: inline-block;
+}
+
+.settings-toggle-btn {
+  display: none;
+}
+
+.mobile-secondary-actions {
+  display: none;
+}
+
+.settings-controls-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+}
 
 /* Header Action Buttons */
 .header-actions-group {
