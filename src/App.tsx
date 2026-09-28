@@ -8,7 +8,6 @@ import {
   Terminal,
   Layers,
   MapPin,
-  Calendar,
   Send,
   FileDown,
   FileText,
@@ -26,9 +25,15 @@ import {
   GraduationCap,
   Sun,
   Moon,
-  Laptop
+  Laptop,
+  ChevronDown,
+  ChevronUp,
+  GitBranch
 } from 'lucide-react';
 import { portfolioData } from './data/portfolioData';
+import { type Language, translations } from './data/translations';
+import { FloatingDock } from './components/FloatingDock';
+import { GitHubActivity } from './components/GitHubActivity';
 
 type Theme = 'liquid' | 'slate' | 'frost';
 type Accent = 'cyan' | 'purple' | 'orange' | 'emerald';
@@ -47,6 +52,31 @@ function App() {
     if (['cyan', 'purple', 'orange', 'emerald'].includes(saved)) return saved;
     return 'cyan';
   });
+
+  const [lang, setLang] = useState<Language>(() => {
+    const saved = localStorage.getItem('portfolio-lang');
+    if (saved === 'en' || saved === 'es') return saved;
+    return 'es';
+  });
+
+  const toggleLang = () => {
+    setLang(prev => (prev === 'es' ? 'en' : 'es'));
+  };
+
+  useEffect(() => {
+    localStorage.setItem('portfolio-lang', lang);
+  }, [lang]);
+
+  const t = translations[lang];
+
+  const [expandedChallenge, setExpandedChallenge] = useState<Record<number, boolean>>({});
+
+  const toggleChallenge = (idx: number) => {
+    setExpandedChallenge(prev => ({
+      ...prev,
+      [idx]: !prev[idx]
+    }));
+  };
 
   const [copied, setCopied] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
@@ -291,22 +321,22 @@ function App() {
             {/* PANEL DE CONTROL TÉCNICO */}
             <div className="settings-panel">
               <div className="control-row">
-                <span className="control-label">TEMA:</span>
+                <span className="control-label">{t.theme}</span>
                 <div className="control-options">
-                  {(['liquid', 'slate', 'frost'] as Theme[]).map((t) => (
+                  {(['liquid', 'slate', 'frost'] as Theme[]).map((thm) => (
                     <button
-                      key={t}
-                      onClick={() => setTheme(t)}
-                      className={`control-btn ${theme === t ? 'active' : ''}`}
+                      key={thm}
+                      onClick={() => setTheme(thm)}
+                      className={`control-btn ${theme === thm ? 'active' : ''}`}
                     >
-                      {t}
+                      {thm}
                     </button>
                   ))}
                 </div>
               </div>
 
               <div className="control-row">
-                <span className="control-label">ACENTO:</span>
+                <span className="control-label">{t.accent}</span>
                 <div className="control-options">
                   {(['cyan', 'purple', 'orange', 'emerald'] as Accent[]).map((a) => (
                     <button
@@ -321,96 +351,124 @@ function App() {
                 </div>
               </div>
 
+              <div className="control-row">
+                <span className="control-label">{t.language}</span>
+                <div className="control-options">
+                  {(['es', 'en'] as Language[]).map((l) => (
+                    <button
+                      key={l}
+                      onClick={() => setLang(l)}
+                      className={`control-btn ${lang === l ? 'active' : ''}`}
+                      title={l === 'es' ? 'Español' : 'English'}
+                    >
+                      {l.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               {/* Acciones de cabecera */}
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '6px' }}>
+              <div className="header-actions-group">
                 <button
                   onClick={() => setIsCommandMenuOpen(true)}
                   className="control-btn command-trigger-btn"
                   title="Abrir paleta de comandos rápida (⌘K)"
                 >
                   <Command size={12} style={{ color: 'var(--accent-color)' }} />
-                  <span>⌘K / COMANDOS</span>
+                  <span>{t.commands}</span>
                 </button>
 
                 <button
                   onClick={copyPortfolioLink}
-                  className="control-btn"
-                  style={{
-                    border: '1px solid var(--border-color)',
-                    background: 'var(--bg-glass)',
-                    backdropFilter: 'blur(8px)',
-                    WebkitBackdropFilter: 'blur(8px)',
-                    padding: '6px 14px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    width: 'fit-content'
-                  }}
+                  className="control-btn header-share-btn"
                 >
                   <Share2 size={12} />
-                  {copiedLink ? 'COPIADO' : 'COMPARTIR'}
+                  {copiedLink ? t.copied : t.share}
                 </button>
 
                 <a
                   href={portfolioData.cv.fileUrl}
                   download={portfolioData.cv.fileName}
                   onClick={handleDownloadCV}
-                  className="control-btn"
-                  style={{
-                    border: '1px solid rgba(var(--accent-rgb), 0.5)',
-                    background: 'linear-gradient(135deg, rgba(var(--accent-rgb), 0.28), rgba(var(--accent-rgb), 0.12))',
-                    backdropFilter: 'blur(8px)',
-                    WebkitBackdropFilter: 'blur(8px)',
-                    padding: '6px 14px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    width: 'fit-content',
-                    textDecoration: 'none',
-                    color: 'var(--text-primary)',
-                    fontWeight: 700
-                  }}
+                  className="control-btn header-cv-btn"
                   title="Descargar Curriculum Vitae en PDF"
                 >
                   <FileDown size={12} style={{ color: 'var(--accent-color)' }} />
-                  DESCARGAR CV
+                  {t.downloadCv}
                 </a>
               </div>
             </div>
           </div>
 
+          {/* 🧭 BARRA DE NAVEGACIÓN SUPERIOR / TOP HEADER NAVBAR */}
+          <nav className="header-nav-bar" aria-label="Navegación principal">
+            {[
+              { id: 'proyectos', label: t.dockProjects, icon: Layers },
+              { id: 'github', label: t.dockGithub, icon: GitBranch },
+              { id: 'sobre-mi', label: t.dockAbout, icon: User },
+              { id: 'experiencia', label: t.dockExperience, icon: Briefcase },
+              { id: 'curriculum', label: t.dockCv, icon: FileText },
+              { id: 'stack', label: t.dockStack, icon: Terminal },
+              { id: 'contacto', label: t.dockContact, icon: Mail },
+            ].map((item) => {
+              const Icon = item.icon;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="header-nav-btn"
+                >
+                  <Icon size={13} style={{ color: 'var(--accent-color)' }} />
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
+          </nav>
+
           {/* REJILLA DE METADATOS TÉCNICOS */}
           <div className="metadata-spec-grid">
             <div className="spec-item">
-              <span className="spec-label">ROL PROFESIONAL</span>
-              <span className="spec-value">FULL STACK DEVELOPER</span>
+              <span className="spec-label">{t.roleLabel}</span>
+              <span className="spec-value">
+                <Briefcase size={12} style={{ color: 'var(--accent-color)' }} />
+                {t.role}
+              </span>
             </div>
             <div className="spec-item">
-              <span className="spec-label">UBICACIÓN</span>
+              <span className="spec-label">{t.locationLabel}</span>
               <span className="spec-value">
                 <MapPin size={12} style={{ color: 'var(--accent-color)' }} />
-                VALENCIA, ES
+                {t.location}
               </span>
             </div>
             <div className="spec-item">
-              <span className="spec-label">DISPONIBILIDAD</span>
+              <span className="spec-label">{t.coreStackLabel}</span>
               <span className="spec-value">
-                <span className="status-dot-pulse" />
-                COLABORACIÓN ACTIVA
+                <Code size={12} style={{ color: 'var(--accent-color)' }} />
+                {t.coreStack}
               </span>
             </div>
             <div className="spec-item">
-              <span className="spec-label">EXPERIENCIA</span>
-              <span className="spec-value">
-                <Calendar size={12} style={{ color: 'var(--accent-color)' }} />
-                +2A FRoNT / +1A BaCK
-              </span>
+              <span className="spec-label">{t.directContactLabel}</span>
+              <a
+                href={`mailto:${portfolioData.main.email}`}
+                className="spec-value spec-link"
+                title={`Enviar correo a ${portfolioData.main.email}`}
+              >
+                <Mail size={12} style={{ color: 'var(--accent-color)' }} />
+                {portfolioData.main.email}
+              </a>
             </div>
           </div>
 
           {/* ⚡ IMPACT METRICS BAR (QUICK STATS LIQUID CARDS) */}
           <div className="stats-impact-grid">
-            {portfolioData.stats.map((stat, idx) => (
+            {[
+              { value: '+2', label: t.stat1Label, detail: t.stat1Detail },
+              { value: '7+', label: t.stat2Label, detail: t.stat2Detail },
+              { value: '2', label: t.stat3Label, detail: t.stat3Detail },
+              { value: '100%', label: t.stat4Label, detail: t.stat4Detail }
+            ].map((stat, idx) => (
               <div key={idx} className="stat-impact-card">
                 <div className="stat-card-glow" />
                 <div className="stat-card-top">
@@ -431,48 +489,48 @@ function App() {
             <div>
               <h2 className="section-title-editorial">
                 <Layers size={18} style={{ color: 'var(--accent-color)' }} />
-                PROYECTOS DESTACADOS
+                {t.projectsTitle}
               </h2>
               <span className="section-subtitle-editorial">
-                Soluciones reales en producción, arquitecturas web y aplicaciones móviles nativas
+                {t.projectsSubtitle}
               </span>
             </div>
-            <span className="section-index">[ FICHA_TÉCNICA_01 ]</span>
+            <span className="section-index">{t.projectsIndex}</span>
           </div>
 
           {/* 🏷️ FILTROS DE CATEGORÍA INTERACTIVOS */}
           <div className="project-filter-bar">
             <span className="filter-label">
               <Filter size={13} style={{ color: 'var(--accent-color)' }} />
-              FILTRAR POR STACK:
+              {t.filterByStack}
             </span>
             <div className="filter-buttons-wrap">
               <button
                 onClick={() => setSelectedCategory('ALL')}
                 className={`filter-pill-btn ${selectedCategory === 'ALL' ? 'active' : ''}`}
               >
-                <span>TODOS</span>
+                <span>{t.filterAll}</span>
                 <span className="filter-pill-count">[{categoryCounts.ALL}]</span>
               </button>
               <button
                 onClick={() => setSelectedCategory('FRONT_END')}
                 className={`filter-pill-btn ${selectedCategory === 'FRONT_END' ? 'active' : ''}`}
               >
-                <span>FRONT-END</span>
+                <span>{t.filterFrontend}</span>
                 <span className="filter-pill-count">[{categoryCounts.FRONT_END}]</span>
               </button>
               <button
                 onClick={() => setSelectedCategory('MÓVIL_IOS')}
                 className={`filter-pill-btn ${selectedCategory === 'MÓVIL_IOS' ? 'active' : ''}`}
               >
-                <span>MÓVIL / IOS</span>
+                <span>{t.filterMobile}</span>
                 <span className="filter-pill-count">[{categoryCounts.MÓVIL_IOS}]</span>
               </button>
               <button
                 onClick={() => setSelectedCategory('FULL_STACK')}
                 className={`filter-pill-btn ${selectedCategory === 'FULL_STACK' ? 'active' : ''}`}
               >
-                <span>FULL STACK</span>
+                <span>{t.filterFullstack}</span>
                 <span className="filter-pill-count">[{categoryCounts.FULL_STACK}]</span>
               </button>
             </div>
@@ -483,6 +541,8 @@ function App() {
             {filteredProjects.slice(0, visibleCount).map((project, idx) => {
               const currentCat = project.category || "DEVELOPMENT";
               const currentRole = project.role || "FULL STACK DEV";
+              const projectDesc = lang === 'en' && project.descriptionEn ? project.descriptionEn : project.description;
+              const hasChallenge = Boolean(project.challenge || project.challengeEn);
 
               return (
                 <article
@@ -566,26 +626,26 @@ function App() {
                   {/* Technical Specifications Container */}
                   <div className="project-spec-container">
                     <div className="project-spec-meta">
-                      <span className="mono-tag">[ ESPECIFICACIONES TÉCNICAS ]</span>
+                      <span className="mono-tag">[ {lang === 'en' ? 'TECHNICAL SPECIFICATIONS' : 'ESPECIFICACIONES TÉCNICAS'} ]</span>
                       <h3 className="project-spec-title">{project.title}</h3>
-                      <p className="project-spec-description">{project.description}</p>
+                      <p className="project-spec-description">{projectDesc}</p>
 
                       <table className="spec-data-table">
                         <tbody>
                           <tr>
-                            <td className="label">Tecnología:</td>
+                            <td className="label">{lang === 'en' ? 'Tech Stack:' : 'Tecnología:'}</td>
                             <td className="value">
-                              {project.tech?.map((t, tIdx) => (
-                                <span key={tIdx} className="tag-tech">{t}</span>
+                              {project.tech?.map((techItem, tIdx) => (
+                                <span key={tIdx} className="tag-tech">{techItem}</span>
                               ))}
                             </td>
                           </tr>
                           <tr>
-                            <td className="label">Función:</td>
+                            <td className="label">{lang === 'en' ? 'Role:' : 'Función:'}</td>
                             <td className="value">{currentRole}</td>
                           </tr>
                           <tr>
-                            <td className="label">Código:</td>
+                            <td className="label">{lang === 'en' ? 'License:' : 'Código:'}</td>
                             <td className="value">Open Source</td>
                           </tr>
                         </tbody>
@@ -599,10 +659,10 @@ function App() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="technical-link-btn"
-                        title="Ver repositorio en GitHub"
+                        title={lang === 'en' ? 'View repository on GitHub' : 'Ver repositorio en GitHub'}
                       >
                         <Code size={13} />
-                        <span>{project.linkText || 'Código GitHub'}</span>
+                        <span>{t.sourceCode}</span>
                         <ExternalLink size={12} />
                       </a>
 
@@ -612,14 +672,70 @@ function App() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="technical-demo-btn"
-                          title="Explorar demostración en vivo"
+                          title={lang === 'en' ? 'Explore live demo' : 'Explorar demostración en vivo'}
                         >
                           <Sparkles size={13} style={{ color: 'var(--accent-color)' }} />
-                          <span>Demo en Vivo</span>
+                          <span>{t.liveDemo}</span>
                           <ArrowUpRight size={13} />
                         </a>
                       )}
                     </div>
+
+                    {/* ⚡ TECHNICAL CHALLENGE & ARCHITECTURAL CASE STUDY */}
+                    {hasChallenge && (
+                      <div>
+                        <button
+                          type="button"
+                          onClick={() => toggleChallenge(idx)}
+                          className={`project-challenge-btn ${expandedChallenge[idx] ? 'expanded' : ''}`}
+                          title="Desplegar reto técnico y solución arquitectónica"
+                        >
+                          <Sparkles size={12} />
+                          <span>
+                            {expandedChallenge[idx] ? t.hideChallenge : t.viewChallenge}
+                          </span>
+                          {expandedChallenge[idx] ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+                        </button>
+
+                        {expandedChallenge[idx] && (
+                          <div className="project-challenge-drawer">
+                            <div className="challenge-block">
+                              <span className="challenge-header-title">
+                                {t.challengeTitle}
+                              </span>
+                              <p className="challenge-body-text">
+                                {lang === 'en' && project.challengeEn ? project.challengeEn : project.challenge}
+                              </p>
+                            </div>
+
+                            <div className="challenge-block">
+                              <span className="challenge-header-title">
+                                {t.solutionTitle}
+                              </span>
+                              <p className="challenge-body-text">
+                                {lang === 'en' && project.solutionEn ? project.solutionEn : project.solution}
+                              </p>
+                            </div>
+
+                            {((lang === 'en' && project.architecturePointsEn) || project.architecturePoints) && (
+                              <div className="challenge-block">
+                                <span className="challenge-header-title">
+                                  {t.keyTechTitle}
+                                </span>
+                                <ul className="architecture-points-list">
+                                  {(lang === 'en' && project.architecturePointsEn
+                                    ? project.architecturePointsEn
+                                    : project.architecturePoints
+                                  )?.map((point, pIdx) => (
+                                    <li key={pIdx}>{point}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
 
                 </article>
@@ -630,7 +746,7 @@ function App() {
           {filteredProjects.length > 5 && (
             <div className="projects-control-bar">
               <div className="projects-status-indicator">
-                <span>[ REGISTROS VISIBLES: </span>
+                <span>[ {lang === 'en' ? 'VISIBLE RECORDS: ' : 'REGISTROS VISIBLES: '}</span>
                 <span className="indicator-number">
                   {Math.min(visibleCount, filteredProjects.length)} / {filteredProjects.length}
                 </span>
@@ -642,15 +758,7 @@ function App() {
                     onClick={() => setVisibleCount(prev => prev + 5)}
                     className="control-action-btn"
                   >
-                    Ver Más [ + ]
-                  </button>
-                )}
-                {visibleCount < filteredProjects.length && (
-                  <button
-                    onClick={() => setVisibleCount(filteredProjects.length)}
-                    className="control-action-btn"
-                  >
-                    Ver Todos [ ++ ]
+                    {t.showMore} [ + ]
                   </button>
                 )}
                 {visibleCount > 5 && (
@@ -658,7 +766,7 @@ function App() {
                     onClick={() => setVisibleCount(5)}
                     className="control-action-btn"
                   >
-                    Ver Menos [ - ]
+                    {t.showLess} [ - ]
                   </button>
                 )}
               </div>
@@ -666,21 +774,24 @@ function App() {
           )}
         </section>
 
+        {/* 🐙 SECCIÓN ACTIVIDAD GITHUB EN TIEMPO REAL */}
+        <GitHubActivity username="alehinarejos" lang={lang} />
+
         {/* 📐 SECCIÓN DETALLES / ACERCA DE MÍ */}
         <section id="sobre-mi" style={{ marginBottom: '80px' }}>
           <div className="section-header-editorial">
             <h2 className="section-title-editorial">
-              SOBRE MÍ
+              {t.aboutTitle}
             </h2>
-            <span className="section-index">[ PERFIL_02 ]</span>
+            <span className="section-index">[ SOBRE_MI_03 ]</span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             <h3 className="editorial-about-title">
-              {portfolioData.about.title.replace(/\n/g, ' ')}
+              {(lang === 'en' && portfolioData.about.titleEn ? portfolioData.about.titleEn : portfolioData.about.title).replace(/\s*\n\s*/g, ' ')}
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {portfolioData.about.description.split('\n\n').map((paragraph, idx) => (
+              {(lang === 'en' && portfolioData.about.descriptionEn ? portfolioData.about.descriptionEn : portfolioData.about.description).split('\n\n').map((paragraph, idx) => (
                 <p key={idx} className="editorial-about-paragraph">
                   {paragraph}
                 </p>
@@ -696,9 +807,9 @@ function App() {
           <div id="experiencia" className="column-editorial">
             <div className="section-header-editorial" style={{ marginBottom: '16px' }}>
               <h2 className="section-title-editorial">
-                EXPERIENCIA PROFESIONAL
+                {t.experienceTitle}
               </h2>
-              <span className="section-index">[ TRAYECTORIA_03 ]</span>
+              <span className="section-index">[ EXPERIENCIA_04 ]</span>
             </div>
 
             <div className="technical-timeline">
@@ -710,7 +821,9 @@ function App() {
                   <div className="timeline-detail-wrap">
                     <h4 className="timeline-title-editorial">{exp.title}</h4>
                     <span className="timeline-subtitle-editorial">{exp.company}</span>
-                    <p className="timeline-desc-editorial">{exp.description}</p>
+                    <p className="timeline-desc-editorial">
+                      {lang === 'en' && exp.descriptionEn ? exp.descriptionEn : exp.description}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -721,9 +834,9 @@ function App() {
           <div id="educacion" className="column-editorial">
             <div className="section-header-editorial" style={{ marginBottom: '16px' }}>
               <h2 className="section-title-editorial">
-                FORMACIÓN ACADÉMICA
+                {t.educationTitle}
               </h2>
-              <span className="section-index">[ HISTORIAL_04 ]</span>
+              <span className="section-index">[ FORMACION_05 ]</span>
             </div>
 
             <div className="technical-timeline">
@@ -735,7 +848,9 @@ function App() {
                   <div className="timeline-detail-wrap">
                     <h4 className="timeline-title-editorial">{edu.title}</h4>
                     <span className="timeline-subtitle-editorial">{edu.subtitle}</span>
-                    <p className="timeline-desc-editorial">{edu.description}</p>
+                    <p className="timeline-desc-editorial">
+                      {lang === 'en' && edu.descriptionEn ? edu.descriptionEn : edu.description}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -749,9 +864,9 @@ function App() {
           <div className="section-header-editorial">
             <h2 className="section-title-editorial">
               <FileText size={18} style={{ color: 'var(--accent-color)' }} />
-              CURRÍCULUM VITAE
+              {t.cvTitle}
             </h2>
-            <span className="section-index">[ EXPEDIENTE_05 ]</span>
+            <span className="section-index">{t.cvIndex}</span>
           </div>
 
           <div className="cv-dossier-card">
@@ -763,7 +878,7 @@ function App() {
 
             <div className="cv-dossier-header">
               <div className="cv-dossier-header-left">
-                <span className="mono-tag">[ EXPEDIENTE PROFESIONAL / VERSIÓN OFICIAL ]</span>
+                <span className="mono-tag">[ {t.cvOfficialPdf} ]</span>
                 <h3 className="cv-dossier-title">{portfolioData.cv.role}</h3>
                 <p className="cv-dossier-summary">{portfolioData.cv.summary}</p>
               </div>
@@ -773,7 +888,10 @@ function App() {
                   <span className="cv-file-ext">PDF</span>
                   <span className="cv-file-size">{portfolioData.cv.fileSize}</span>
                 </div>
-                <span className="cv-file-version">ACTUALIZADO {portfolioData.cv.lastUpdated}</span>
+                <span className="cv-file-version">
+                  {lang === 'en' ? 'UPDATED ' : 'ACTUALIZADO '}
+                  {portfolioData.cv.lastUpdated}
+                </span>
               </div>
             </div>
 
@@ -803,7 +921,7 @@ function App() {
                 className="cv-download-primary-btn"
               >
                 <FileDown size={15} />
-                <span>Descargar Currículum (PDF)</span>
+                <span>{t.cvDownloadBtn}</span>
                 <span className="cv-btn-kbd">[{portfolioData.cv.fileSize}]</span>
               </a>
 
@@ -814,7 +932,7 @@ function App() {
                 className="cv-view-secondary-btn"
               >
                 <Eye size={15} />
-                <span>Visualizar en Navegador</span>
+                <span>{t.cvViewBtn}</span>
                 <ExternalLink size={12} />
               </a>
             </div>
@@ -826,45 +944,45 @@ function App() {
           <div className="section-header-editorial">
             <h2 className="section-title-editorial">
               <Terminal size={18} style={{ color: 'var(--accent-color)' }} />
-              ESPECIFICACIONES DEL STACK
+              {t.stackTitle}
             </h2>
-            <span className="section-index">[ SISTEMA_06 ]</span>
+            <span className="section-index">[ STACK_06 ]</span>
           </div>
 
           <table className="skills-spec-table">
             <thead>
               <tr>
-                <th style={{ width: '30%' }}>Categoría</th>
-                <th style={{ width: '70%' }}>Tecnologías e Infraestructura</th>
+                <th style={{ width: '30%' }}>{lang === 'en' ? 'Category' : 'Categoría'}</th>
+                <th style={{ width: '70%' }}>{lang === 'en' ? 'Technologies & Infrastructure' : 'Tecnologías e Infraestructura'}</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="skill-category-name">Front-end Development</td>
+                <td className="skill-category-name">{t.stackFrontend}</td>
                 <td className="skill-list-mono">
                   <span className="skill-list-item">React.js</span>
-                  <span className="skill-list-item">Mithril.js</span>
+                  <span className="skill-list-item">Next.js</span>
                   <span className="skill-list-item">TypeScript</span>
                   <span className="skill-list-item">TailwindCSS</span>
                   <span className="skill-list-item">JavaScript (ES6+)</span>
-                  <span className="skill-list-item">HTML5 / CSS3</span>
+                  <span className="skill-list-item">HTML5 / Modern CSS</span>
+                  <span className="skill-list-item">Mithril.js</span>
                 </td>
               </tr>
               <tr>
-                <td className="skill-category-name">Back-end Development</td>
+                <td className="skill-category-name">{t.stackBackend}</td>
                 <td className="skill-list-mono">
-                  <span className="skill-list-item">Java</span>
-                  <span className="skill-list-item">Spring Boot</span>
+                  <span className="skill-list-item">Node.js</span>
                   <span className="skill-list-item">PHP</span>
                   <span className="skill-list-item">Python</span>
                   <span className="skill-list-item">REST APIs</span>
                   <span className="skill-list-item">MySQL</span>
                   <span className="skill-list-item">MongoDB</span>
-                  <span className="skill-list-item">Node.js</span>
+                  <span className="skill-list-item">Java / Spring Boot</span>
                 </td>
               </tr>
               <tr>
-                <td className="skill-category-name">Mobile & Multiplataforma</td>
+                <td className="skill-category-name">{lang === 'en' ? 'Mobile & Cross-Platform' : 'Mobile & Multiplataforma'}</td>
                 <td className="skill-list-mono">
                   <span className="skill-list-item">Swift</span>
                   <span className="skill-list-item">SwiftUI</span>
@@ -873,12 +991,13 @@ function App() {
                 </td>
               </tr>
               <tr>
-                <td className="skill-category-name">Entorno & Despliegue</td>
+                <td className="skill-category-name">{t.stackTools}</td>
                 <td className="skill-list-mono">
                   <span className="skill-list-item">Git / GitHub</span>
                   <span className="skill-list-item">Vercel</span>
                   <span className="skill-list-item">Vite</span>
-                  <span className="skill-list-item">ESLint</span>
+                  <span className="skill-list-item">ESLint / Prettier</span>
+                  <span className="skill-list-item">Docker</span>
                 </td>
               </tr>
             </tbody>
@@ -888,31 +1007,35 @@ function App() {
         {/* 📐 SECCIÓN FORMULARIO DE CONTACTO TÉCNICO & WHATSAPP */}
         <section id="contacto" style={{ marginBottom: '60px' }}>
           <div className="section-header-editorial">
-            <h2 className="section-title-editorial">
-              MÓDULO DE CONTACTO
-            </h2>
-            <span className="section-index">[ COMUNICACIÓN_07 ]</span>
+            <div>
+              <h2 className="section-title-editorial">
+                <Mail size={18} style={{ color: 'var(--accent-color)' }} />
+                {t.contactTitle}
+              </h2>
+              <span className="section-subtitle-editorial">{t.contactSubtitle}</span>
+            </div>
+            <span className="section-index">{t.contactIndex}</span>
           </div>
 
           <form onSubmit={handleFormSubmit} className="technical-contact-form">
             <div className="contact-form-grid">
               <div className="form-group-technical">
-                <label className="form-label-technical">Remitente / Nombre</label>
+                <label className="form-label-technical">{lang === 'en' ? 'Sender / Name' : 'Nombre o Empresa'}</label>
                 <input
                   type="text"
                   className="form-input-technical"
-                  placeholder="Nombre completo"
+                  placeholder={t.contactNamePlaceholder}
                   required
                   value={emailForm.name}
                   onChange={(e) => setEmailForm({ ...emailForm, name: e.target.value })}
                 />
               </div>
               <div className="form-group-technical">
-                <label className="form-label-technical">Correo de Respuesta</label>
+                <label className="form-label-technical">{lang === 'en' ? 'Your Email' : 'Tu Correo Electrónico'}</label>
                 <input
                   type="email"
                   className="form-input-technical"
-                  placeholder="email@example.com"
+                  placeholder={t.contactEmailPlaceholder}
                   required
                   value={emailForm.email}
                   onChange={(e) => setEmailForm({ ...emailForm, email: e.target.value })}
@@ -921,10 +1044,10 @@ function App() {
             </div>
 
             <div className="form-group-technical">
-              <label className="form-label-technical">Mensaje / Especificación</label>
+              <label className="form-label-technical">{lang === 'en' ? 'Message / Details' : 'Mensaje o Propuesta'}</label>
               <textarea
                 className="form-input-technical form-textarea-technical"
-                placeholder="Detalla tu propuesta o consulta técnica..."
+                placeholder={t.contactMessagePlaceholder}
                 required
                 rows={4}
                 value={emailForm.message}
@@ -935,7 +1058,7 @@ function App() {
             <button type="submit" className="form-submit-technical-btn">
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Send size={12} />
-                Enviar mensaje
+                {t.contactSendBtn}
               </span>
             </button>
           </form>
@@ -943,13 +1066,13 @@ function App() {
           {/* DUAL DIRECT CONTACT ACTIONS: Email & WhatsApp */}
           <div className="contact-quick-actions-grid">
             {/* Direct Email Card */}
-            <div onClick={copyEmailToClipboard} className="dashboard-mail-bar" role="button" tabIndex={0} title="Copiar correo electrónico al portapapeles">
+            <div onClick={copyEmailToClipboard} className="dashboard-mail-bar" role="button" tabIndex={0} title={t.contactCopyEmail}>
               <div className="mail-bar-details">
                 <div className="mail-bar-icon-wrap">
                   <Mail size={14} />
                 </div>
                 <div>
-                  <p className="contact-bar-sub">Contacto Directo por Email</p>
+                  <p className="contact-bar-sub">{t.contactDirectEmail}</p>
                   <p className="contact-bar-main">{portfolioData.main.email}</p>
                 </div>
               </div>
@@ -971,13 +1094,13 @@ function App() {
                   <MessageCircle size={15} />
                 </div>
                 <div>
-                  <p className="contact-bar-sub">Chat Instantáneo / WhatsApp</p>
+                  <p className="contact-bar-sub">{lang === 'en' ? 'Instant Chat / WhatsApp' : 'Chat Instantáneo / WhatsApp'}</p>
                   <p className="contact-bar-main">+34 633 344 337</p>
                 </div>
               </div>
               <div className="contact-online-badge">
                 <span className="online-dot" />
-                <span>DIRECTO</span>
+                <span>{lang === 'en' ? 'DIRECT' : 'DIRECTO'}</span>
                 <ArrowUpRight size={13} />
               </div>
             </a>
@@ -989,9 +1112,9 @@ function App() {
           <div className="section-header-editorial">
             <h2 className="section-title-editorial">
               <Share2 size={18} style={{ color: 'var(--accent-color)' }} />
-              REDES SOCIALES
+              {t.socialsTitle}
             </h2>
-            <span className="section-index">[ CONEXIONES_08 ]</span>
+            <span className="section-index">{t.socialsIndex}</span>
           </div>
 
           <div className="socials-grid-technical">
@@ -1001,7 +1124,9 @@ function App() {
                 handle: '@alehinarejos',
                 tag: '[ DEV / REPOSITORIOS ]',
                 url: portfolioData.socials.github,
-                description: 'Código abierto, proyectos personales, colaboraciones y repositorios de desarrollo continuo.',
+                description: lang === 'en'
+                  ? 'Open source software, personal projects, collaborations, and active repositories.'
+                  : 'Código abierto, proyectos personales, colaboraciones y repositorios de desarrollo continuo.',
                 icon: (
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
@@ -1014,7 +1139,9 @@ function App() {
                 handle: 'Alejandro Hinarejos González',
                 tag: '[ PROFESIONAL / RED ]',
                 url: portfolioData.socials.linkedin,
-                description: 'Perfil laboral, experiencia profesional, formación académica y red de contactos en tecnología.',
+                description: lang === 'en'
+                  ? 'Professional profile, engineering background, academic records, and network.'
+                  : 'Perfil laboral, experiencia profesional, formación académica y red de contactos en tecnología.',
                 icon: (
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -1028,7 +1155,9 @@ function App() {
                 handle: '@alehinarejos',
                 tag: '[ SOCIAL / PERSONAL ]',
                 url: portfolioData.socials.instagram,
-                description: 'Presencia digital, proyectos creativos, actualidad y faceta personal.',
+                description: lang === 'en'
+                  ? 'Digital lifestyle, creative projects, news, and personal interests.'
+                  : 'Presencia digital, proyectos creativos, actualidad y faceta personal.',
                 icon: (
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
@@ -1059,7 +1188,7 @@ function App() {
                 </div>
 
                 <div className="social-card-action">
-                  <span>Visitar perfil</span>
+                  <span>{lang === 'en' ? 'Visit profile' : 'Visitar perfil'}</span>
                   <ExternalLink size={12} />
                 </div>
               </a>
@@ -1069,41 +1198,48 @@ function App() {
 
         {/* 📐 PIE DE PÁGINA */}
         <footer className="editorial-footer">
-          <p>© {new Date().getFullYear()} ALEJANDRO HINAREJOS. TODOS LOS DERECHOS RESERVADOS.</p>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <p>© {new Date().getFullYear()} {t.footerRights}</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
             <button
               onClick={() => setIsCommandMenuOpen(true)}
               className="footer-command-hint"
               title="Atajo de teclado ⌘K"
             >
-              [ ⌘K PALETA DE COMANDOS ]
+              [ {t.commands} ]
             </button>
-            <p>[ LIQUID GLASS 2026 ]</p>
+            <p>[ {t.footerStackNotice} ]</p>
           </div>
         </footer>
 
         {/* HUD Toast Alerts */}
         <div className={`toast ${copied ? 'show' : ''}`}>
           <Check size={14} />
-          <span>[ STATUS: EMAIL COPIADO ]</span>
+          <span>[ STATUS: {t.contactCopied} ]</span>
         </div>
 
         <div className={`toast ${copiedLink ? 'show' : ''}`}>
           <Check size={14} />
-          <span>[ STATUS: ENLACE COPIADO ]</span>
+          <span>[ STATUS: {lang === 'en' ? 'PORTFOLIO LINK COPIED' : 'ENLACE COPIADO'} ]</span>
         </div>
 
         <div className={`toast ${submitted ? 'show' : ''}`}>
           <Check size={14} />
-          <span>[ STATUS: ABRIENDO CLIENTE DE CORREO... ]</span>
+          <span>[ STATUS: {lang === 'en' ? 'OPENING EMAIL CLIENT...' : 'ABRIENDO CLIENTE DE CORREO...'} ]</span>
         </div>
 
         <div className={`toast ${downloadedCV ? 'show' : ''}`}>
           <Check size={14} />
-          <span>[ STATUS: DESCARGA DE CV INICIADA ]</span>
+          <span>[ STATUS: {lang === 'en' ? 'CV DOWNLOAD STARTED' : 'DESCARGA DE CV INICIADA'} ]</span>
         </div>
 
       </div>
+
+      {/* 🧭 APPLE-STYLE FLOATING DOCK */}
+      <FloatingDock
+        lang={lang}
+        onToggleLang={toggleLang}
+        onOpenCommand={() => setIsCommandMenuOpen(true)}
+      />
 
       {/* 🚀 COMMAND PALETTE MODAL (⌘K / CTRL+K) */}
       {isCommandMenuOpen && (
@@ -1120,7 +1256,7 @@ function App() {
               <input
                 type="text"
                 autoFocus
-                placeholder="Escribe un comando o busca secciones..."
+                placeholder={lang === 'en' ? 'Type a command or search sections...' : 'Escribe un comando o busca secciones...'}
                 className="command-search-input"
                 value={commandQuery}
                 onChange={(e) => setCommandQuery(e.target.value)}
@@ -1139,7 +1275,7 @@ function App() {
             <div className="command-results-list">
               {filteredCommandGroups.length === 0 ? (
                 <div className="command-empty-state">
-                  <span>No se encontraron comandos para &quot;{commandQuery}&quot;</span>
+                  <span>{lang === 'en' ? `No commands found for "${commandQuery}"` : `No se encontraron comandos para "${commandQuery}"`}</span>
                 </div>
               ) : (
                 filteredCommandGroups.map((group, gIdx) => (
@@ -1170,13 +1306,13 @@ function App() {
             {/* Footer Quick Keys */}
             <div className="command-palette-footer">
               <span className="command-footer-tip">
-                <span className="command-kbd">↑↓</span> para navegar
+                <span className="command-kbd">↑↓</span> {lang === 'en' ? 'navigate' : 'para navegar'}
               </span>
               <span className="command-footer-tip">
-                <span className="command-kbd">↵</span> para seleccionar
+                <span className="command-kbd">↵</span> {lang === 'en' ? 'select' : 'para seleccionar'}
               </span>
               <span className="command-footer-tip">
-                <span className="command-kbd">ESC</span> para salir
+                <span className="command-kbd">ESC</span> {lang === 'en' ? 'exit' : 'para salir'}
               </span>
             </div>
           </div>
