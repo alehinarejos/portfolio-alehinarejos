@@ -494,7 +494,7 @@ h1, h2, h3, h4, h5, h6 {
 
   /* Ultra-sleek Mobile Bottom Drawer for Customization & Theme */
   .settings-controls-group {
-    display: none;
+    display: none !important;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -511,7 +511,7 @@ h1, h2, h3, h4, h5, h6 {
     border: 1px solid var(--border-color);
     border-bottom: none;
     border-radius: 24px 24px 0 0;
-    padding: 16px 20px calc(24px + env(safe-area-inset-bottom, 16px)) 20px;
+    padding: 18px 20px calc(84px + env(safe-area-inset-bottom, 16px)) 20px;
     box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.65), 0 0 0 1px var(--glass-specular);
     flex-direction: column;
     gap: 16px;
@@ -526,7 +526,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .settings-panel.mobile-expanded .settings-controls-group {
-    display: flex;
+    display: flex !important;
   }
 
   /* Drawer Top Bar & Handle */
@@ -673,44 +673,19 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
   }
 
-  /* Language selector grid in mobile */
-  .settings-controls-group .control-options-lang {
+  .settings-controls-group .control-options-accent {
     width: 100%;
     display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(5, 1fr) !important;
     gap: 6px !important;
     box-sizing: border-box;
     background: rgba(0, 0, 0, 0.3) !important;
-    padding: 4px !important;
-    border-radius: 12px !important;
+    padding: 8px 6px !important;
+    border-radius: 14px !important;
   }
 
-  .settings-controls-group .control-options-lang .control-btn {
-    width: 100%;
-    padding: 8px 6px;
-    font-size: 0.70rem;
-    border-radius: 8px;
-    text-align: center;
-    justify-content: center;
-  }
-
-  .mobile-secondary-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 4px;
-    padding-top: 12px;
-    border-top: 1px solid var(--border-color);
-    width: 100%;
-  }
-
-  .mobile-secondary-actions .header-share-btn,
-  .mobile-secondary-actions .header-cv-btn {
-    width: 100%;
-    justify-content: center;
-    font-size: 0.72rem;
-    padding: 9px 10px;
-    border-radius: 8px;
+  .settings-controls-group .control-row:last-of-type {
+    margin-bottom: 6px;
   }
 }
 
@@ -858,15 +833,13 @@ body.theme-light .accent-btn-indicator.white {
   gap: 4px;
 }
 
-.mobile-secondary-actions {
-  display: none;
-}
-
-.settings-controls-group {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: flex-end;
+@media (min-width: 769px) {
+  .settings-controls-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+  }
 }
 
 /* Header Action Buttons */

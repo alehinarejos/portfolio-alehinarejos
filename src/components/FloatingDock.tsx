@@ -8,7 +8,9 @@ import {
   ArrowUp,
   Command,
   Globe,
-  GitBranch
+  GitBranch,
+  Palette,
+  X
 } from 'lucide-react';
 import { type Language, translations } from '../data/translations';
 
@@ -16,9 +18,11 @@ interface FloatingDockProps {
   lang: Language;
   onToggleLang: () => void;
   onOpenCommand: () => void;
+  onToggleSettings?: () => void;
+  isSettingsOpen?: boolean;
 }
 
-export function FloatingDock({ lang, onToggleLang, onOpenCommand }: FloatingDockProps) {
+export function FloatingDock({ lang, onToggleLang, onOpenCommand, onToggleSettings, isSettingsOpen }: FloatingDockProps) {
   const [activeSection, setActiveSection] = useState<string>('top');
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -171,6 +175,22 @@ export function FloatingDock({ lang, onToggleLang, onOpenCommand }: FloatingDock
           <Command size={13} style={{ color: 'var(--accent-color)' }} />
           <span className="dock-cmd-kbd">⌘K</span>
         </button>
+
+        {/* Settings / Customize Theme & Accent */}
+        {onToggleSettings && (
+          <button
+            onClick={onToggleSettings}
+            className={`dock-item dock-item-theme ${isSettingsOpen ? 'active' : ''}`}
+            title={isSettingsOpen ? (lang === 'es' ? 'Cerrar selector' : 'Close selector') : (lang === 'es' ? 'Personalizar tema y acento' : 'Theme & accent settings')}
+            aria-label={isSettingsOpen ? 'Cerrar selector' : 'Personalizar tema'}
+          >
+            {isSettingsOpen ? (
+              <X size={13} style={{ color: 'var(--accent-color)' }} />
+            ) : (
+              <Palette size={13} style={{ color: 'var(--accent-color)' }} />
+            )}
+          </button>
+        )}
 
         {/* Language Switcher */}
         <button

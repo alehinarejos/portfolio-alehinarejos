@@ -403,44 +403,6 @@ function App() {
                     ))}
                   </div>
                 </div>
-
-                <div className="control-row">
-                  <span className="control-label">{t.language}</span>
-                  <div className="control-options control-options-lang">
-                    {(['es', 'en'] as Language[]).map((l) => (
-                      <button
-                        key={l}
-                        onClick={() => setLang(l)}
-                        className={`control-btn ${lang === l ? 'active' : ''}`}
-                        title={l === 'es' ? 'Español' : 'English'}
-                      >
-                        {l.toUpperCase()}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Acciones secundarias en móvil dentro del menú desplegable */}
-                <div className="mobile-secondary-actions">
-                  <button
-                    onClick={copyPortfolioLink}
-                    className="control-btn header-share-btn"
-                  >
-                    <Share2 size={12} />
-                    {copiedLink ? t.copied : t.share}
-                  </button>
-
-                  <a
-                    href={portfolioData.cv.fileUrl}
-                    download={portfolioData.cv.fileName}
-                    onClick={handleDownloadCV}
-                    className="control-btn header-cv-btn"
-                    title="Descargar Curriculum Vitae en PDF"
-                  >
-                    <FileDown size={12} style={{ color: 'var(--accent-color)' }} />
-                    {t.downloadCv}
-                  </a>
-                </div>
               </div>
 
               {/* Acciones de cabecera */}
@@ -459,12 +421,19 @@ function App() {
                 <button
                   onClick={() => setIsSettingsOpen(prev => !prev)}
                   className={`control-btn settings-toggle-btn ${isSettingsOpen ? 'active' : ''}`}
-                  title="Ajustes de personalización"
-                  aria-label="Ajustes de personalización"
+                  title={isSettingsOpen ? (lang === 'es' ? 'Ocultar selector' : 'Hide selector') : (lang === 'es' ? 'Mostrar selector' : 'Show selector')}
+                  aria-label={isSettingsOpen ? (lang === 'es' ? 'Ocultar selector' : 'Hide selector') : (lang === 'es' ? 'Mostrar selector' : 'Show selector')}
                   aria-expanded={isSettingsOpen}
+                  type="button"
                 >
-                  <Palette size={14} style={{ color: 'var(--accent-color)' }} />
-                  <span className="settings-toggle-label">{t.accent} / {t.theme}</span>
+                  {isSettingsOpen ? (
+                    <X size={15} style={{ color: 'var(--accent-color)' }} />
+                  ) : (
+                    <Palette size={15} style={{ color: 'var(--accent-color)' }} />
+                  )}
+                  <span className="settings-toggle-label">
+                    {isSettingsOpen ? (lang === 'es' ? 'Cerrar' : 'Close') : `${t.accent} / ${t.theme}`}
+                  </span>
                 </button>
 
                 <button
@@ -1328,6 +1297,8 @@ function App() {
         lang={lang}
         onToggleLang={toggleLang}
         onOpenCommand={() => setIsCommandMenuOpen(true)}
+        onToggleSettings={() => setIsSettingsOpen(prev => !prev)}
+        isSettingsOpen={isSettingsOpen}
       />
 
       {/* 🚀 COMMAND PALETTE MODAL (⌘K / CTRL+K) */}
