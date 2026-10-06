@@ -1490,6 +1490,132 @@ body.theme-light .accent-btn-indicator.white {
   white-space: pre-wrap;
 }
 
+/* 🏆 OFFICIAL CERTIFICATIONS GRID & CARDS */
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+.certification-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 24px;
+  background: var(--bg-glass-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-specular);
+  border-radius: 16px;
+  transition: all var(--transition-speed) ease;
+  overflow: hidden;
+}
+
+.certification-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.4), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-speed) ease;
+}
+
+.certification-card:hover {
+  border-color: rgba(var(--accent-rgb), 0.4);
+  background: var(--bg-glass-card-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-specular);
+}
+
+.certification-card:hover::before {
+  opacity: 1;
+}
+
+.cert-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.cert-vendor-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--accent-color);
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
+  padding: 3px 9px;
+  border-radius: 6px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cert-type-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.cert-title {
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.cert-issuer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.cert-issuer-name {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.cert-category-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.cert-description {
+  font-size: 0.83rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin-top: auto;
+}
+
+@media (max-width: 600px) {
+  .certifications-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .certification-card {
+    padding: 18px 20px;
+  }
+}
+
 /* TECH STACK SPECIFICATION LIST TABLE (Liquid Glass Table) */
 .skills-spec-table {
   width: 100%;

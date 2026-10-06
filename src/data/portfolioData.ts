@@ -33,6 +33,17 @@ export interface Education {
   descriptionEn?: string;
 }
 
+export interface Certification {
+  date: string;
+  title: string;
+  issuer: string;
+  badge: string;
+  category: string;
+  categoryEn?: string;
+  description: string;
+  descriptionEn?: string;
+}
+
 export interface WorkExperience {
   date: string;
   title: string;
@@ -88,6 +99,7 @@ export interface PortfolioData {
   stats: StatItem[];
   projects: Project[];
   education: Education[];
+  certifications: Certification[];
   experience: WorkExperience[];
   cv: ResumeInfo;
 }
@@ -381,39 +393,57 @@ export const portfolioData: PortfolioData = {
       subtitle: "Colegio Santísima Trinidad, Valencia",
       description: "Bachillerato con especialización en ciencias y tecnologías científicas.",
       descriptionEn: "High School Diploma, Scientific and Technological curriculum."
-    },
+    }
+  ],
+
+  certifications: [
     {
       date: "Certificación Oficial",
       title: "AWS Technical Essentials",
-      subtitle: "Amazon Web Services (AWS)",
+      issuer: "Amazon Web Services (AWS)",
+      badge: "AWS",
+      category: "Cloud & Infraestructura",
+      categoryEn: "Cloud & Infrastructure",
       description: "Fundamentos de computación en la nube, infraestructura, bases de datos y seguridad en AWS.",
       descriptionEn: "Cloud computing fundamentals, infrastructure, cloud databases, and security on AWS."
     },
     {
       date: "Certificación Oficial",
       title: "MTA: HTML5 Application Development Fundamentals",
-      subtitle: "Microsoft",
+      issuer: "Microsoft",
+      badge: "MICROSOFT",
+      category: "Frontend & Web Architecture",
+      categoryEn: "Frontend & Web Architecture",
       description: "Certificación oficial de Microsoft en desarrollo de aplicaciones web con HTML5, CSS3 y JavaScript.",
       descriptionEn: "Official Microsoft certification in web application development using HTML5, CSS3, and JavaScript."
     },
     {
       date: "Certificación Oficial",
       title: "MTA: Introduction to Programming Using HTML and CSS",
-      subtitle: "Microsoft",
+      issuer: "Microsoft",
+      badge: "MICROSOFT",
+      category: "Fundamentos de Software",
+      categoryEn: "Software Fundamentals",
       description: "Certificación oficial de Microsoft en fundamentos de programación web con HTML y CSS.",
       descriptionEn: "Official Microsoft certification in web programming fundamentals using HTML and CSS."
     },
     {
       date: "Certificación Oficial",
       title: "Artificial Intelligence Fundamentals",
-      subtitle: "Certificación Profesional",
+      issuer: "Certificación Profesional",
+      badge: "AI FUNDAMENTALS",
+      category: "Machine Learning & AI",
+      categoryEn: "Machine Learning & AI",
       description: "Fundamentos de inteligencia artificial, modelos de machine learning y conceptos de aprendizaje automático.",
       descriptionEn: "Fundamentals of Artificial Intelligence, core machine learning models, and practical AI applications."
     },
     {
-      date: "Certificación",
+      date: "Especialización Técnica",
       title: "React - Guía definitiva: hooks router redux next +Proyectos",
-      subtitle: "Udemy",
+      issuer: "Udemy",
+      badge: "UDEMY",
+      category: "Ecosistema React & Next.js",
+      categoryEn: "React Ecosystem & Next.js",
       description: "Especialización avanzada en React: custom hooks, react-router, Redux, Next.js y desarrollo de aplicaciones de producción.",
       descriptionEn: "Advanced React specialization: custom hooks, routing, Redux, Next.js, and production web applications."
     }

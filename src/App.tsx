@@ -23,6 +23,8 @@ import {
   User,
   Briefcase,
   GraduationCap,
+  Award,
+  CheckCircle2,
   Sun,
   Moon,
   Laptop,
@@ -237,9 +239,10 @@ function App() {
         { label: 'Sobre Mí / Perfil', icon: <User size={14} />, action: () => scrollToSection('sobre-mi'), tag: '[ SECCIÓN 02 ]' },
         { label: 'Experiencia Profesional', icon: <Briefcase size={14} />, action: () => scrollToSection('experiencia'), tag: '[ SECCIÓN 03 ]' },
         { label: 'Formación Académica', icon: <GraduationCap size={14} />, action: () => scrollToSection('educacion'), tag: '[ SECCIÓN 04 ]' },
-        { label: 'Currículum Vitae (Dossier PDF)', icon: <FileText size={14} />, action: () => scrollToSection('curriculum'), tag: '[ SECCIÓN 05 ]' },
-        { label: 'Especificaciones del Stack', icon: <Terminal size={14} />, action: () => scrollToSection('stack'), tag: '[ SECCIÓN 06 ]' },
-        { label: 'Módulo de Contacto', icon: <Mail size={14} />, action: () => scrollToSection('contacto'), tag: '[ SECCIÓN 07 ]' }
+        { label: 'Certificaciones Oficiales', icon: <Award size={14} />, action: () => scrollToSection('certificaciones'), tag: '[ SECCIÓN 05 ]' },
+        { label: 'Currículum Vitae (Dossier PDF)', icon: <FileText size={14} />, action: () => scrollToSection('curriculum'), tag: '[ SECCIÓN 06 ]' },
+        { label: 'Especificaciones del Stack', icon: <Terminal size={14} />, action: () => scrollToSection('stack'), tag: '[ SECCIÓN 07 ]' },
+        { label: 'Módulo de Contacto', icon: <Mail size={14} />, action: () => scrollToSection('contacto'), tag: '[ SECCIÓN 08 ]' }
       ]
     },
     {
@@ -465,6 +468,7 @@ function App() {
               { id: 'github', label: t.dockGithub, icon: GitBranch },
               { id: 'sobre-mi', label: t.dockAbout, icon: User },
               { id: 'experiencia', label: t.dockExperience, icon: Briefcase },
+              { id: 'certificaciones', label: t.dockCertifications, icon: Award },
               { id: 'curriculum', label: t.dockCv, icon: FileText },
               { id: 'stack', label: t.dockStack, icon: Terminal },
               { id: 'contacto', label: t.dockContact, icon: Mail },
@@ -858,13 +862,14 @@ function App() {
           </div>
         </section>
 
-        {/* 📐 SECCIÓN EXPERIENCIA Y EDUCACIÓN */}
+        {/* 📐 SECCIÓN EXPERIENCIA Y FORMACIÓN */}
         <section className="editorial-double-column" style={{ marginBottom: '60px' }}>
 
           {/* Columna Izquierda: Experiencia Laboral */}
           <div id="experiencia" className="column-editorial">
             <div className="section-header-editorial" style={{ marginBottom: '16px' }}>
               <h2 className="section-title-editorial">
+                <Briefcase size={18} style={{ color: 'var(--accent-color)' }} />
                 {t.experienceTitle}
               </h2>
               <span className="section-index">[ EXPERIENCIA_04 ]</span>
@@ -888,13 +893,14 @@ function App() {
             </div>
           </div>
 
-          {/* Columna Derecha: Formación Académica */}
+          {/* Columna Derecha: Formación Académica (Grados Oficiales) */}
           <div id="educacion" className="column-editorial">
             <div className="section-header-editorial" style={{ marginBottom: '16px' }}>
               <h2 className="section-title-editorial">
+                <GraduationCap size={18} style={{ color: 'var(--accent-color)' }} />
                 {t.educationTitle}
               </h2>
-              <span className="section-index">[ FORMACION_05 ]</span>
+              <span className="section-index">[ FORMACION_04 ]</span>
             </div>
 
             <div className="technical-timeline">
@@ -915,6 +921,49 @@ function App() {
             </div>
           </div>
 
+        </section>
+
+        {/* 📐 SECCIÓN CERTIFICACIONES OFICIALES */}
+        <section id="certificaciones" style={{ marginBottom: '60px' }}>
+          <div className="section-header-editorial">
+            <div>
+              <h2 className="section-title-editorial">
+                <Award size={18} style={{ color: 'var(--accent-color)' }} />
+                {t.certificationsTitle}
+              </h2>
+              <span className="section-subtitle-editorial">
+                {t.certificationsSubtitle}
+              </span>
+            </div>
+            <span className="section-index">{t.certificationsIndex}</span>
+          </div>
+
+          <div className="certifications-grid">
+            {portfolioData.certifications.map((cert, idx) => (
+              <div key={idx} className="certification-card">
+                <div className="cert-card-header">
+                  <span className="cert-vendor-tag">[ {cert.badge} ]</span>
+                  <span className="cert-type-pill">
+                    <CheckCircle2 size={12} style={{ color: 'var(--accent-color)' }} />
+                    {cert.date}
+                  </span>
+                </div>
+
+                <h3 className="cert-title">{cert.title}</h3>
+
+                <div className="cert-issuer-meta">
+                  <span className="cert-issuer-name">{cert.issuer}</span>
+                  <span className="cert-category-badge">
+                    {lang === 'en' && cert.categoryEn ? cert.categoryEn : cert.category}
+                  </span>
+                </div>
+
+                <p className="cert-description">
+                  {lang === 'en' && cert.descriptionEn ? cert.descriptionEn : cert.description}
+                </p>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* 📐 SECCIÓN CURRÍCULUM VITAE */}
@@ -1004,7 +1053,7 @@ function App() {
               <Terminal size={18} style={{ color: 'var(--accent-color)' }} />
               {t.stackTitle}
             </h2>
-            <span className="section-index">[ STACK_06 ]</span>
+            <span className="section-index">[ STACK_07 ]</span>
           </div>
 
           <table className="skills-spec-table">

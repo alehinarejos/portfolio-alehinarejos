@@ -66,6 +66,10 @@ export interface Translations {
   aboutSubtitle: string;
   experienceTitle: string;
   educationTitle: string;
+  certificationsTitle: string;
+  certificationsSubtitle: string;
+  certificationsIndex: string;
+  dockCertifications: string;
 
   // CV Dossier
   cvTitle: string;
@@ -187,11 +191,14 @@ export const translations: Record<Language, Translations> = {
     aboutTitle: 'Sobre Mí y Trayectoria',
     aboutSubtitle: 'Enfoque práctico en arquitecturas frontend modernas y sistemas backend robustos',
     experienceTitle: 'Experiencia Laboral',
-    educationTitle: 'Educación & Certificaciones',
+    educationTitle: 'Formación Académica',
+    certificationsTitle: 'Certificaciones Oficiales',
+    certificationsSubtitle: 'Acreditaciones oficiales de la industria (AWS, Microsoft, IA) y especializaciones técnicas verificadas',
+    certificationsIndex: '[ CERTIFICACIONES_05 ]',
 
     cvTitle: 'Currículum Vitae',
     cvSubtitle: 'Resumen profesional consolidado, certificaciones oficiales y experiencia laboral verificada',
-    cvIndex: '[ CURRICULUM_05 ]',
+    cvIndex: '[ CURRICULUM_06 ]',
     cvOfficialPdf: 'PDF Oficial',
     cvQuickStats: 'Resumen del Perfil',
     cvAvailability: '100% Inmediata',
@@ -210,7 +217,7 @@ export const translations: Record<Language, Translations> = {
 
     contactTitle: 'Contacto Directo',
     contactSubtitle: '¿Tienes una propuesta o quieres colaborar en un proyecto? Escríbeme y hablemos.',
-    contactIndex: '[ CONTACTO_07 ]',
+    contactIndex: '[ CONTACTO_08 ]',
     contactDirectEmail: 'Correo Electrónico',
     contactCopyEmail: 'Copiar Correo',
     contactCopied: '¡Correo copiado!',
@@ -226,13 +233,14 @@ export const translations: Record<Language, Translations> = {
     contactSendAnother: 'Enviar otro mensaje',
 
     socialsTitle: 'Redes y Perfiles',
-    socialsIndex: '[ REDES_08 ]',
+    socialsIndex: '[ REDES_09 ]',
 
     dockTop: 'Inicio',
     dockProjects: 'Proyectos',
     dockGithub: 'GitHub',
     dockAbout: 'Sobre mí',
     dockExperience: 'Experiencia',
+    dockCertifications: 'Certificaciones',
     dockCv: 'CV',
     dockStack: 'Stack',
     dockContact: 'Contacto',
@@ -301,11 +309,14 @@ export const translations: Record<Language, Translations> = {
     aboutTitle: 'About Me & Background',
     aboutSubtitle: 'Hands-on focus on modern frontend architectures and resilient backend systems',
     experienceTitle: 'Work Experience',
-    educationTitle: 'Education & Certifications',
+    educationTitle: 'Academic Background',
+    certificationsTitle: 'Official Certifications',
+    certificationsSubtitle: 'Industry-verified credentials (AWS, Microsoft, AI) and specialized engineering diplomas',
+    certificationsIndex: '[ CERTIFICATIONS_05 ]',
 
     cvTitle: 'Curriculum Vitae',
     cvSubtitle: 'Consolidated engineering profile, certified qualifications, and verified work history',
-    cvIndex: '[ RESUME_05 ]',
+    cvIndex: '[ RESUME_06 ]',
     cvOfficialPdf: 'Official PDF',
     cvQuickStats: 'Candidate Overview',
     cvAvailability: '100% Immediate',
@@ -324,7 +335,7 @@ export const translations: Record<Language, Translations> = {
 
     contactTitle: 'Direct Contact',
     contactSubtitle: 'Have an interesting opportunity or want to collaborate? Send a message and let\'s talk.',
-    contactIndex: '[ CONTACT_07 ]',
+    contactIndex: '[ CONTACT_08 ]',
     contactDirectEmail: 'Direct Email',
     contactCopyEmail: 'Copy Email',
     contactCopied: 'Email copied!',
@@ -340,13 +351,14 @@ export const translations: Record<Language, Translations> = {
     contactSendAnother: 'Send another message',
 
     socialsTitle: 'Social & Profiles',
-    socialsIndex: '[ SOCIAL_08 ]',
+    socialsIndex: '[ SOCIAL_09 ]',
 
     dockTop: 'Top',
     dockProjects: 'Projects',
     dockGithub: 'GitHub',
     dockAbout: 'About',
     dockExperience: 'Experience',
+    dockCertifications: 'Certifications',
     dockCv: 'CV',
     dockStack: 'Stack',
     dockContact: 'Contact',
