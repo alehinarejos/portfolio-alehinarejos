@@ -522,8 +522,8 @@ function App() {
           {/* ⚡ IMPACT METRICS BAR (QUICK STATS LIQUID CARDS) */}
           <div className="stats-impact-grid">
             {[
-              { value: '+2', label: t.stat1Label, detail: t.stat1Detail },
-              { value: '7+', label: t.stat2Label, detail: t.stat2Detail },
+              { value: '+1 año', label: t.stat1Label, detail: t.stat1Detail },
+              { value: '5', label: t.stat2Label, detail: t.stat2Detail },
               { value: '2', label: t.stat3Label, detail: t.stat3Detail },
               { value: '100%', label: t.stat4Label, detail: t.stat4Detail }
             ].map((stat, idx) => (
@@ -1018,44 +1018,48 @@ function App() {
               <tr>
                 <td className="skill-category-name">{t.stackFrontend}</td>
                 <td className="skill-list-mono">
-                  <span className="skill-list-item">React.js</span>
-                  <span className="skill-list-item">Next.js</span>
-                  <span className="skill-list-item">TypeScript</span>
-                  <span className="skill-list-item">TailwindCSS</span>
                   <span className="skill-list-item">JavaScript (ES6+)</span>
+                  <span className="skill-list-item">React.js</span>
+                  <span className="skill-list-item">Angular JS</span>
+                  <span className="skill-list-item">TypeScript</span>
                   <span className="skill-list-item">HTML5 / Modern CSS</span>
                   <span className="skill-list-item">Mithril.js</span>
+                  <span className="skill-list-item">TailwindCSS</span>
+                  <span className="skill-list-item">Next.js</span>
                 </td>
               </tr>
               <tr>
                 <td className="skill-category-name">{t.stackBackend}</td>
                 <td className="skill-list-mono">
                   <span className="skill-list-item">Node.js</span>
-                  <span className="skill-list-item">PHP</span>
-                  <span className="skill-list-item">Python</span>
-                  <span className="skill-list-item">REST APIs</span>
+                  <span className="skill-list-item">PHP / Laravel</span>
+                  <span className="skill-list-item">Java</span>
+                  <span className="skill-list-item">APIs REST</span>
+                  <span className="skill-list-item">Arquitectura MVC</span>
+                  <span className="skill-list-item">WebSockets</span>
+                  <span className="skill-list-item">SignalR</span>
                   <span className="skill-list-item">MySQL</span>
+                  <span className="skill-list-item">PostgreSQL</span>
                   <span className="skill-list-item">MongoDB</span>
-                  <span className="skill-list-item">Java / Spring Boot</span>
                 </td>
               </tr>
               <tr>
-                <td className="skill-category-name">{lang === 'en' ? 'Mobile & Cross-Platform' : 'Mobile & Multiplataforma'}</td>
+                <td className="skill-category-name">{lang === 'en' ? 'CMS & Cloud' : 'CMS & Cloud'}</td>
                 <td className="skill-list-mono">
-                  <span className="skill-list-item">Swift</span>
-                  <span className="skill-list-item">SwiftUI</span>
-                  <span className="skill-list-item">iOS SDK</span>
-                  <span className="skill-list-item">Leaflet Maps</span>
+                  <span className="skill-list-item">WordPress</span>
+                  <span className="skill-list-item">Drupal</span>
+                  <span className="skill-list-item">AWS (Technical Essentials)</span>
                 </td>
               </tr>
               <tr>
                 <td className="skill-category-name">{t.stackTools}</td>
                 <td className="skill-list-mono">
                   <span className="skill-list-item">Git / GitHub</span>
-                  <span className="skill-list-item">Vercel</span>
+                  <span className="skill-list-item">Grunt</span>
                   <span className="skill-list-item">Vite</span>
-                  <span className="skill-list-item">ESLint / Prettier</span>
+                  <span className="skill-list-item">Vercel</span>
                   <span className="skill-list-item">Docker</span>
+                  <span className="skill-list-item">ESLint</span>
                 </td>
               </tr>
             </tbody>

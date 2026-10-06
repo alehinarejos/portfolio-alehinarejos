@@ -107,8 +107,8 @@ export const portfolioData: PortfolioData = {
   },
 
   stats: [
-    { value: "+2", label: "AÑOS EXPERIENCIA", detail: "Front-end & Back-end" },
-    { value: "7+", label: "PROYECTOS OPEN SOURCE", detail: "Web, APIs & Mobile" },
+    { value: "+1 año", label: "EXP. EN EMPRESA", detail: "Digital Value (1 año 2 meses)" },
+    { value: "5", label: "CERTIFICACIONES", detail: "AWS, Microsoft MTA & AI" },
     { value: "2", label: "TITULACIONES OFICIALES", detail: "CFGS DAM + CFGS DAW" },
     { value: "100%", label: "DISPONIBILIDAD", detail: "Incorporación inmediata" }
   ],
@@ -116,16 +116,16 @@ export const portfolioData: PortfolioData = {
   homepage: {
     title: "Alejandro Hinarejos, \nFull Stack Developer",
     description:
-      "Soy un desarrollador con experiencia tanto en front-end como en back-end. En el front-end, he trabajado con React.js, Mithril.js, TypeScript y TailwindCSS, desarrollando portales autogestionables, tiendas en línea y marketplaces. En el back-end, he utilizado PHP, Python, REST APIs y MySQL para gestionar bases de datos y el consumo de APIs. Tengo más de 2 años de experiencia en front-end y más de 1 año en back-end, siempre buscando mejorar y aprender nuevas metodologías.",
+      "Desarrollador full stack afincado en Valencia, especializado en construir aplicaciones web escalables con JavaScript, Angular y React, e integrar APIs bajo arquitecturas MVC. Experiencia profesional en DIGITAL VALUE S.L reduciendo ~20% tiempos de carga y acelerando ~30% las entregas mediante componentes reutilizables. Conocimientos sólidos de backend (Laravel, Node.js) y bases de datos relacionales y no relacionales (MySQL, PostgreSQL, MongoDB).",
   },
 
   about: {
     title: "Hola, \nsoy Alejandro Hinarejos. \nVivo en Valencia, España.",
     titleEn: "Hello, \nI'm Alejandro Hinarejos. \nBased in Valencia, Spain.",
     description:
-      "Soy un desarrollador con conocimientos sólidos tanto en desarrollo front-end como back-end. En el front-end, trabajo con React.js, TypeScript, Next.js y TailwindCSS, diseñando portales interactivos, paneles de datos y aplicaciones de alto rendimiento.\n\nEn el back-end, he trabajado con tecnologías como PHP, Python, REST APIs, Node.js y MySQL, gestionando bases de datos relacionales, autenticación y consumo eficiente de APIs de terceros.\n\nTengo más de 2 años de experiencia en front-end y más de 1 año en back-end, siempre buscando la máxima sincronía entre diseño, arquitectura escalable y rendimiento.",
+      "Soy desarrollador full stack afincado en Valencia, especializado en construir aplicaciones web escalables con JavaScript, Angular y React, e integrar APIs bajo arquitecturas MVC.\n\nComo Programador Full-Stack en Digital Value, he trabajado en el desarrollo y despliegue de ecosistemas web con WordPress y Drupal, reduciendo en torno a un 20% los tiempos de carga y acelerando en un 30% la entrega de nuevos productos digitales mediante sistemas de componentes reutilizables.\n\nComplemento mi perfil front-end con conocimientos prácticos de backend (Laravel, Node.js) y bases de datos relacionales y no relacionales (MySQL, PostgreSQL, MongoDB), desarrollados en proyectos personales y formativos.\n\nTecnologías: JavaScript · Angular · React · PHP · Laravel · Node.js · MySQL · PostgreSQL · MongoDB · HTML5 · CSS3 · APIs REST · MVC · WordPress · Drupal · Git.\n\nDisponible para nuevas oportunidades como desarrollador full stack. Abierto a hablar — puedes contactarme directamente por correo en jandrohinarejos@gmail.com.",
     descriptionEn:
-      "I am a software developer with solid experience across both frontend and backend engineering. On the frontend, I build with React.js, TypeScript, Next.js, and modern CSS architecture, delivering reactive dashboards, web applications, and seamless interfaces.\n\nOn the backend, I work with PHP, Python, REST APIs, Node.js, and MySQL to design database structures, optimize API consumption, and handle real-time data flows.\n\nWith over 2 years of frontend experience and 1+ years in backend development, I constantly pursue scalable system architectures, clean code patterns, and sub-second response times."
+      "I am a full stack developer based in Valencia, specialized in building scalable web applications with JavaScript, Angular, and React, and integrating APIs under MVC architectures.\n\nAs a Full-Stack Developer at Digital Value, I worked on the development and deployment of web ecosystems using WordPress and Drupal, reducing load times by ~20% and accelerating digital product delivery times by ~30% through reusable component systems.\n\nI complement my front-end profile with practical backend knowledge (Laravel, Node.js) and relational and non-relational databases (MySQL, PostgreSQL, MongoDB), developed across personal and educational projects.\n\nTechnologies: JavaScript · Angular · React · PHP · Laravel · Node.js · MySQL · PostgreSQL · MongoDB · HTML5 · CSS3 · REST APIs · MVC · WordPress · Drupal · Git.\n\nAvailable for new opportunities as a full stack developer. Open to talk — feel free to reach out directly at jandrohinarejos@gmail.com."
   },
 
   projects: [
@@ -362,44 +362,72 @@ export const portfolioData: PortfolioData = {
 
   education: [
     {
-      date: "2025 - Actualidad",
+      date: "09/2025 - 06/2026",
       title: "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)",
-      subtitle: "Florida Universitaria, Valencia",
-      description: "Especialización en desarrollo, implantación y mantenimiento de aplicaciones informáticas multiplataforma, sistemas cliente-servidor y arquitectura de software.",
-      descriptionEn: "Higher National Diploma in Cross-Platform Software Development. Specializing in client-server architecture, native mobile apps, and systems engineering."
+      subtitle: "Florida Universitària, Valencia",
+      description: "Desarrollo de Aplicaciones Multiplataforma, Web Page, Digital/Multimedia and Information Resources Design.",
+      descriptionEn: "Higher National Diploma in Cross-Platform Software Development, Web Page, Digital/Multimedia and Information Resources Design."
     },
     {
-      date: "2025",
-      title: "Python TOTAL - Programador avanzado",
-      subtitle: "Udemy",
-      description: "Desde 0. Usando IA. 16 proyectos REALES. 160 ejercicios de código. Machine Learning, Data Science, Django, Juegos y más!",
-      descriptionEn: "Comprehensive Python course: 16 real-world projects, data science, Django web applications, REST APIs, and machine learning fundamentals."
-    },
-    {
-      date: "2025",
-      title: "React - Guía definitiva",
-      subtitle: "Udemy",
-      description: "Profundización en React: hooks, router, redux, next y desarrollo de proyectos reales.",
-      descriptionEn: "Advanced React engineering: custom hooks, modern routing, state management, Next.js, and production architecture."
-    },
-    {
-      date: "09/2022 - 06/2024",
+      date: "2022 - 2024",
       title: "Técnico Superior en Desarrollo de Aplicaciones Web (DAW)",
-      subtitle: "IES Consellería, Valencia",
-      description: "Desarrollo web adquiriendo conocimientos sólidos en JavaScript, HTML5, PHP, CSS y arquitectura MVC.",
-      descriptionEn: "Higher National Diploma in Web Application Development. Core focus on JavaScript, PHP, MySQL, MVC architecture, and backend systems."
+      subtitle: "IES CONSELLERIA, Valencia",
+      description: "Desarrollo de Aplicaciones Web: JavaScript, PHP, MySQL, arquitectura MVC, desarrollo front-end y back-end.",
+      descriptionEn: "Higher National Diploma in Web Application Development: JavaScript, PHP, MySQL, MVC architecture, frontend and backend development."
+    },
+    {
+      date: "09/2019 - 06/2021",
+      title: "Bachillerato - Modalidad Tecnologías Científicas",
+      subtitle: "Colegio Santísima Trinidad, Valencia",
+      description: "Bachillerato con especialización en ciencias y tecnologías científicas.",
+      descriptionEn: "High School Diploma, Scientific and Technological curriculum."
+    },
+    {
+      date: "Certificación Oficial",
+      title: "AWS Technical Essentials",
+      subtitle: "Amazon Web Services (AWS)",
+      description: "Fundamentos de computación en la nube, infraestructura, bases de datos y seguridad en AWS.",
+      descriptionEn: "Cloud computing fundamentals, infrastructure, cloud databases, and security on AWS."
+    },
+    {
+      date: "Certificación Oficial",
+      title: "MTA: HTML5 Application Development Fundamentals",
+      subtitle: "Microsoft",
+      description: "Certificación oficial de Microsoft en desarrollo de aplicaciones web con HTML5, CSS3 y JavaScript.",
+      descriptionEn: "Official Microsoft certification in web application development using HTML5, CSS3, and JavaScript."
+    },
+    {
+      date: "Certificación Oficial",
+      title: "MTA: Introduction to Programming Using HTML and CSS",
+      subtitle: "Microsoft",
+      description: "Certificación oficial de Microsoft en fundamentos de programación web con HTML y CSS.",
+      descriptionEn: "Official Microsoft certification in web programming fundamentals using HTML and CSS."
+    },
+    {
+      date: "Certificación Oficial",
+      title: "Artificial Intelligence Fundamentals",
+      subtitle: "Certificación Profesional",
+      description: "Fundamentos de inteligencia artificial, modelos de machine learning y conceptos de aprendizaje automático.",
+      descriptionEn: "Fundamentals of Artificial Intelligence, core machine learning models, and practical AI applications."
+    },
+    {
+      date: "Certificación",
+      title: "React - Guía definitiva: hooks router redux next +Proyectos",
+      subtitle: "Udemy",
+      description: "Especialización avanzada en React: custom hooks, react-router, Redux, Next.js y desarrollo de aplicaciones de producción.",
+      descriptionEn: "Advanced React specialization: custom hooks, routing, Redux, Next.js, and production web applications."
     }
   ],
 
   experience: [
     {
       date: "02/2024 - 03/2025",
-      title: "Programador Full-Stack / Full Stack Developer",
-      company: "Digital Value, Valencia",
+      title: "Desarrollador de full stack / Full Stack Developer",
+      company: "DIGITAL VALUE S.L, Valencia (1 año 2 meses)",
       description:
-        "• Desarrollé y desplegué ecosistemas web escalables con JavaScript (Mithril.js / React.js), WordPress y Drupal, reduciendo en aproximadamente un 20% los tiempos de carga de las aplicaciones.\n• Diseñé sistemas de componentes y plantillas reutilizables en JavaScript y HTML5, acelerando en torno a un 30% el tiempo de entrega de nuevos productos digitales.\n• Integré y consumí APIs REST bajo arquitectura MVC para automatizar flujos de datos entre sistemas, mejorando la fiabilidad de la sincronización de datos.\n• Utilicé Angular JS y herramientas de automatización de tareas como Grunt para optimizar el flujo de trabajo de desarrollo front-end.\n• Colaboré con equipos multidisciplinares para identificar y eliminar cuellos de botella técnicos, mejorando la estabilidad general de la plataforma.",
+        "• Desarrollé y desplegué ecosistemas web escalables con JavaScript (Mithril.js/React.js), WordPress y Drupal, reduciendo ~20% los tiempos de carga.\n• Diseñé sistemas de componentes y plantillas reutilizables, acelerando ~30% la entrega de nuevos productos digitales.\n• Integré APIs REST bajo arquitectura MVC para automatizar flujos de datos entre sistemas.\n• Utilicé Angular JS y Grunt para optimizar el flujo de trabajo front-end.",
       descriptionEn:
-        "• Engineered scalable web solutions with JavaScript (Mithril.js / React.js), WordPress, and Drupal, reducing application load times by ~20%.\n• Designed modular UI component systems and templates, accelerating digital product delivery time by ~30%.\n• Integrated and consumed REST APIs under MVC patterns to automate data synchronization pipelines across disparate services.\n• Leveraged AngularJS and task runners like Grunt to streamline frontend builds and continuous integration.\n• Collaborated with cross-functional teams to resolve technical bottlenecks and improve overall application stability."
+        "• Developed and deployed scalable web ecosystems with JavaScript (Mithril.js/React.js), WordPress, and Drupal, reducing ~20% load times.\n• Designed modular UI component systems and templates, accelerating digital product delivery times by ~30%.\n• Integrated REST APIs under MVC architecture to automate data flows between systems.\n• Leveraged AngularJS and Grunt to optimize the front-end development workflow."
     }
   ],
 
@@ -408,26 +436,26 @@ export const portfolioData: PortfolioData = {
     fileName: "Alejandro_Hinarejos_CV.pdf",
     fileSize: "48 KB",
     lastUpdated: "2025 - 2026",
-    role: "Desarrollador de Software / Full Stack Developer",
+    role: "Full Stack Developer | JavaScript · Java · React · PHP/Laravel · Node.js | APIs REST & MVC",
     summary:
-      "Documento curricular oficial con experiencia en desarrollo Full-Stack (JavaScript, PHP, React, Angular, Laravel, Node.js), titulaciones DAM y DAW, integraciones de APIs y gestión de bases de datos.",
-    badges: ["PDF OFICIAL", "INCORPORACIÓN INMEDIATA", "VEHÍCULO PROPIO", "INGLÉS INTERMEDIO (A2)"],
+      "Desarrollador full stack afincado en Valencia con experiencia en DIGITAL VALUE S.L. Especializado en JavaScript, Angular, React, PHP/Laravel, Node.js, arquitecturas MVC y APIs REST. Doble titulación oficial DAM y DAW, y 5 certificaciones oficiales (AWS, Microsoft MTA y AI).",
+    badges: ["INCORPORACIÓN INMEDIATA", "VEHÍCULO PROPIO", "INGLÉS INTERMEDIO (A2)", "VALENCIA, ESPAÑA"],
     highlights: [
       {
         label: "Perfil Profesional",
-        value: "Desarrollador Full-Stack enfocado en soluciones escalables, optimización de tiempos de carga y flujos de datos automatizados."
+        value: "Full Stack Developer (JavaScript · Java · React · PHP/Laravel · Node.js · APIs REST & MVC · WebSockets · SignalR)."
       },
       {
-        label: "Experiencia Laboral",
-        value: "Full-Stack Developer en Digital Value (Mithril.js, React, WordPress, Drupal, APIs REST, Grunt)."
+        label: "Experiencia en Empresa",
+        value: "Desarrollador full stack en DIGITAL VALUE S.L (1 año 2 meses · Reducción ~20% tiempos de carga, aceleración ~30% entregas con componentes reutilizables)."
       },
       {
-        label: "Formación Oficial",
-        value: "CFGS DAM (Florida Universitaria) · CFGS DAW (IES Consellería) · Cursos OpenWebinars."
+        label: "Educación Oficial",
+        value: "CFGS DAM (Florida Universitària, 2025-2026) · CFGS DAW (IES CONSELLERIA, 2022-2024) · Bachillerato Científico-Tecnológico (2019-2021)."
       },
       {
-        label: "Disponibilidad",
-        value: "Incorporación inmediata · Carné de conducir B y vehículo propio · Movilidad activa."
+        label: "Certificaciones",
+        value: "AWS Technical Essentials · Microsoft MTA HTML5 · Microsoft MTA HTML/CSS · Artificial Intelligence Fundamentals · React Avanzado."
       }
     ]
   }
